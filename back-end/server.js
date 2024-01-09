@@ -19,10 +19,23 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-// app.get("/login", (req, res) => {
-//   res.send("<h1>hlw sir i am login sir </h1>");
-//   console.log("i am port login");
-// });
+
+//login ....
+app.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ error: "Invilid username or password" });
+    }
+    if (user.password !== password) {
+      return res.status(401).json({ error: "invilid username password" });
+    }
+    res.status(200).json({ massage: "login succesfull" });
+  } catch (error) {
+    res.status(500).json({ error: "login failde" });
+  }
+});
 
 connectDB();
 app.listen(8000, () => {
