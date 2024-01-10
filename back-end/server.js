@@ -2,10 +2,12 @@ const express = require("express");
 const connectDB = require("./db/connection");
 const User = require("./db/user");
 const app = express();
-
+const cors = require("cors");
 //midleware for parsing
 app.use(express.json());
 
+//enable corde
+app.use(cors());
 //registration
 app.post("/register", async (req, res) => {
   try {
