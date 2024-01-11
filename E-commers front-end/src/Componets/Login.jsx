@@ -18,13 +18,15 @@ const LoginPage = () => {
       const response = await axios.post('http://localhost:8000/login', loginData);
       const success = response.data;
       if (success) {
-        console.log('Login successful');
-        alert('Successful login');
+        alert("done bro jaou maouj kro..")
+        window.location.href='http://localhost:5173/';
       } else {
+      
         console.log('Unsuccessful login');
         alert('Invalid username or password');
       }
     } catch (error) {
+      alert("use correct username")
       console.error('Login error:', error.message);
     }
 
