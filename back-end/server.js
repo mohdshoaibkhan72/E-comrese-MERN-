@@ -12,12 +12,19 @@ app.use(cors());
 app.post("/register", async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log(req.body);
     const user = new User({ username, password });
+     if (user.ok) {
+      alert("Register succesfull");
+    }
+
     await user.save();
-    res.status(201).json({ message: "Registration is successful" });
+   
+    if (user != ok) {
+      alert("somthing wents wrong please enter again ");
+    }
   } catch (error) {
     console.error(error);
+
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -32,6 +39,9 @@ app.post("/login", async (req, res) => {
     }
     if (user.password !== password) {
       return res.status(401).json({ error: "invilid username password" });
+    }
+    if (user.ok) {
+      alert("login succesfull");
     }
     res.status(200).json({ massage: "login succesfull" });
   } catch (error) {

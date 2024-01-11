@@ -24,9 +24,11 @@ e.preventDefault();
 try{
     const response = await axios.post('http://localhost:8000/register',registrationData);
     console.log(response.data);
+    alert("successfully register ");
 }
 catch(error){
     console.log(error)
+    alert("somthing waints wrong")
 }
 setRegistrationData({
     username:'',
