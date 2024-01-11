@@ -27,17 +27,8 @@ const RegistrationPage = () => {
   e.preventDefault();
 
   try {
-    // Check if the email or mobile number is already registered
-    const existingUserEmail = await axios.get(`http://localhost:8000/check-email/${registrationData.email}`);
+    
   
-    if (existingUserEmail.data.exists) {
-      alert("Email already registered");
-      return;
-    }
-
-   
-
-    // If not registered, proceed with the registration
     const response = await axios.post("http://localhost:8000/register", registrationData);
     console.log(response.data);
     alert("Successfully registered");

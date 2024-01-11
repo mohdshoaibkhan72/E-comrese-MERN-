@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: true,
-    maxlength: 50, // Adjust the maximum length as needed
+    maxlength: 25, // Adjust the maximum length as needed
   },
   username: {
     type: String,
@@ -36,5 +36,4 @@ const UserSchema = new mongoose.Schema({
 });
 
 const Users = mongoose.model("User", UserSchema);
-
 module.exports = Users;
