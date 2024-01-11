@@ -13,6 +13,12 @@ connectDB();
 app.use(cors());
 
 //registration
+// Express.js example
+app.get('/check-email/:email', async (req, res) => {
+  const existingUser = await User.findOne({ email: req.params.email });
+  res.json({ exists: !!existingUser });
+});
+
 app.post("/register", async (req, res) => {
   try {
     const { fullName, username, password, email, mobileNumber } = req.body;
@@ -24,10 +30,15 @@ app.post("/register", async (req, res) => {
       email,
       mobileNumber,
     });
-    const reg = await User.findOne({ email });
-    if (reg) {
+    const emai = await User.findOne({ email });
+    const number=await User.findOne( {mobileNumber});
+    if (emai) {
       alert("email alredy register");
-    } else {
+    }
+    if (number) {
+      alert("already register mobile nu ")
+    }
+     else {
       await user.save();
       res.status(201).json({ message: "Registration is successful" });
     }

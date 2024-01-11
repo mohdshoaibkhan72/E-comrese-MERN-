@@ -1,49 +1,60 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const RegistrationPage = () => {
   const [registrationData, setRegistrationData] = useState({
-    fullName: '',
-    username: '',
-    password: '',
-    email: '',
-    mobileNumber: ''
-
-  })
+    fullName: "",
+    username: "",
+    password: "",
+    email: "",
+    mobileNumber: "",
+  });
   const handleRegistrationChange = (e) => {
     const { name, value } = e.target;
 
     setRegistrationData((prevData) => ({
       ...prevData,
       [name]: value,
-    }))
-
-  }
+    }));
+  };
   const [showPassword, setShowPassword] = useState(false);
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
   const handleRegistrationSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8000/register', registrationData);
-      console.log(response.data);
-      alert("successfully register ");
+  e.preventDefault();
+
+  try {
+    // Check if the email or mobile number is already registered
+    const existingUserEmail = await axios.get(`http://localhost:8000/check-email/${registrationData.email}`);
+  
+    if (existingUserEmail.data.exists) {
+      alert("Email already registered");
+      return;
     }
-    catch (error) {
-      console.log(error)
-      alert("somthing waints wrong")
-    }
-    setRegistrationData({
-      fullName: '',
-      username: '',
-      password: '',
-      email: '',
-      mobileNumber: ''
-    })
+
+   
+
+    // If not registered, proceed with the registration
+    const response = await axios.post("http://localhost:8000/register", registrationData);
+    console.log(response.data);
+    alert("Successfully registered");
+  } catch (error) {
+    console.log(error);
+    alert("Something went wrong");
   }
+
+  // Reset the registrationData after submission
+  setRegistrationData({
+    fullName: "",
+    username: "",
+    password: "",
+    email: "",
+    mobileNumber: "",
+  });
+};
 
   return (
     <div className="container mt-5">
@@ -54,7 +65,6 @@ const RegistrationPage = () => {
               <h2 className="card-title text-center mb-4">Registration Form</h2>
               <form onSubmit={handleRegistrationSubmit}>
                 <div className="mb-3">
-
                   <input
                     type="text"
                     className="form-control"
@@ -80,7 +90,7 @@ const RegistrationPage = () => {
                 </div>
                 <div className="mb-3 input-group">
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     className="form-control"
                     id="password"
                     name="password"
@@ -94,7 +104,7 @@ const RegistrationPage = () => {
                     type="button"
                     onClick={handleTogglePassword}
                   >
-                    {showPassword ? 'Hide' : 'Show'}
+                    {showPassword ? "Hide" : "Show"}
                   </button>
                 </div>
                 <div className="mb-3">
@@ -122,7 +132,9 @@ const RegistrationPage = () => {
                   />
                 </div>
                 <div className="text-center mb-3">
-                  <button type="submit" className="btn btn-primary">Register</button>
+                  <button type="submit" className="btn btn-primary">
+                    Register
+                  </button>
                 </div>
                 <p className="text-center">
                   Already registered? <Link to="/login">Login Here</Link>
