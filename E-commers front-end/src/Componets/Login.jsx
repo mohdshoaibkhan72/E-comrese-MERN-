@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import '../App.css'
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
     username: '',
@@ -49,66 +49,58 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card bg-light">
-            <div className="card-body">
-              <h2 className="card-title text-center mb-4">Login</h2>
-              <form onSubmit={handleLoginSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="username" className="form-label">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="username"
-                    name="username"
-                    placeholder="Username"
-                    value={loginData.username}
-                    onChange={handleLoginChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <div className="input-group">
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      className="form-control"
-                      id="password"
-                      name="password"
-                      placeholder="Password"
-                      value={loginData.password}
-                      onChange={handleLoginChange}
-                      required
-                    />
-                    <button
-                      type="button"
-                      className="btn btn-outline-secondary"
-                      onClick={toggleShowPassword}
-                    >
-                      {showPassword ? 'Hide' : 'Show'}
-                    </button>
-                  </div>
-                </div>
-                <div className="text-center mb-3">
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
-                </div>
-                <p className="text-center">
-                  Not registered yet? <Link to="/register">Register Here</Link>
-                </p>
-              </form>
-            </div>
-          </div>
+    <>
+      <div className="container">
+        <form onSubmit={handleLoginSubmit}>
+          <p>Welcome</p>
+          <input
+            type="text"
+            className="form-control"
+            id="username"
+            name="username"
+            placeholder="Username"
+            value={loginData.username}
+            onChange={handleLoginChange}
+            required
+          />
+          <br />
+          <input
+            type={showPassword ? 'text' : 'password'}
+            className="form-control"
+            id="password"
+            name="password"
+            placeholder="Password"
+            value={loginData.password}
+            onChange={handleLoginChange}
+            required
+          />
+          <br />
+          <button
+            type="button"
+            className="btn btn-primary btn1 "
+            onClick={toggleShowPassword}
+          >
+            {showPassword ? 'Hide password' : 'Show password'}
+          </button>
+          <button type="submit" className="btn btn-primary btn1">
+            Submit
+          </button>
+          <br />
+          <a href="#">Forgot Password?</a>
+          <a className="text-center">
+            Not registered yet? <Link to="/register">Register Here</Link>
+          </a>
+        </form>
+
+        <div className="drops">
+          <div className="drop drop-1"></div>
+          <div className="drop drop-2"></div>
+          <div className="drop drop-3"></div>
+          <div className="drop drop-4"></div>
+          <div className="drop drop-5"></div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

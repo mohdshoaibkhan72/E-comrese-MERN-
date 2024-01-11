@@ -5,7 +5,6 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
 const App = () => {
   return (<>
-   <h1>hlw defalt page....</h1>
     <div>
       <BrowserRouter>
         <Routes>

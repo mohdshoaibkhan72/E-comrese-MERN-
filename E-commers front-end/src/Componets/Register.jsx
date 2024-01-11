@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import '../App.css'
 const RegistrationPage = () => {
   const [registrationData, setRegistrationData] = useState({
     fullName: "",
@@ -48,13 +48,14 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
+    <div className="container ">
+      <div>
         <div className="col-md-6">
-          <div className="card bg-light text-dark">
-            <div className="card-body">
-              <h2 className="card-title text-center mb-4">Registration Form</h2>
+          <div className="text-dark">
+            <div className="">
+              
               <form onSubmit={handleRegistrationSubmit}>
+              <p>Registraio Form</p>
                 <div className="mb-3">
                   <input
                     type="text"
@@ -91,7 +92,7 @@ const RegistrationPage = () => {
                     required
                   />
                   <button
-                    className="btn btn-outline-secondary bg-light text-dark"
+                    className="btn btn-primary btn1"
                     type="button"
                     onClick={handleTogglePassword}
                   >
@@ -132,6 +133,13 @@ const RegistrationPage = () => {
                   Already registered? <Link to="/login">Login Here</Link>
                 </p>
               </form>
+              <div className="drops">
+          <div className="drop drop-1"></div>
+          <div className="drop drop-2"></div>
+          <div className="drop drop-3"></div>
+          <div className="drop drop-4"></div>
+          <div className="drop drop-5"></div>
+        </div>
             </div>
           </div>
         </div>
