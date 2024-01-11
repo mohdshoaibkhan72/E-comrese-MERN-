@@ -24,28 +24,28 @@ const RegistrationPage = () => {
   };
 
   const handleRegistrationSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    
-  
-    const response = await axios.post("http://localhost:8000/register", registrationData);
-    console.log(response.data);
-    alert("Successfully registered");
-  } catch (error) {
-    console.log(error);
-    alert("Something went wrong");
-  }
+    try {
 
-  // Reset the registrationData after submission
-  setRegistrationData({
-    fullName: "",
-    username: "",
-    password: "",
-    email: "",
-    mobileNumber: "",
-  });
-};
+
+      const response = await axios.post("http://localhost:8000/register", registrationData);
+      console.log(response.data);
+      alert("Successfully registered");
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong");
+    }
+
+    // Reset the registrationData after submission
+    setRegistrationData({
+      fullName: "",
+      username: "",
+      password: "",
+      email: "",
+      mobileNumber: "",
+    });
+  };
 
   return (
     <div className="container mt-5">
@@ -113,18 +113,15 @@ const RegistrationPage = () => {
                 <div className="mb-3">
                   <input
                     type="text"
-                    className={`form-control ${mobileNumberError ? 'is-invalid' : ''} bg-light text-dark`}
+                    className="form-control bg-light text-dark"
                     id="mobileNumber"
                     name="mobileNumber"
                     placeholder="Mobile Number"
                     value={registrationData.mobileNumber}
                     onChange={handleRegistrationChange}
-                    onBlur={validateMobileNumber}
                     required
                   />
-                  {mobileNumberError && (
-                    <div className="invalid-feedback">{mobileNumberError}</div>
-                  )}
+
                 </div>
                 <div className="text-center mb-3">
                   <button type="submit" className="btn btn-primary">

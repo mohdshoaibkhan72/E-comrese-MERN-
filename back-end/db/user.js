@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: true,
-    maxlength: 25, // Adjust the maximum length as needed
+    maxlength: 20,
   },
   username: {
     type: String,
@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     min: 8,
-    max: 16,
+    maxlength:16,
     required: true,
   },
   email: {
@@ -27,11 +27,16 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  emailVerified: {
+    type: Boolean,
+    default: true,
+  },
   mobileNumber: {
-    type: String, Number,
+    type: String,
     trim: true,
     required: true,
     unique: true,
+    maxlength:12,
   },
 });
 
