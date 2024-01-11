@@ -12,9 +12,6 @@ connectDB();
 //enable corde
 app.use(cors());
 
-
-
-
 //registration
 app.post("/register", async (req, res) => {
   try {
@@ -39,16 +36,6 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
-
-
-
-
-
-
-
-
-
 
 //login ....
 const jwt = require("jsonwebtoken");

@@ -4,15 +4,13 @@ import { Link } from 'react-router-dom'
 
 const RegistrationPage = () => {
   const [registrationData, setRegistrationData] = useState({
-   fullName:'',
+    fullName: '',
     username: '',
     password: '',
-    email:'',
-    mobileNumber:''
+    email: '',
+    mobileNumber: ''
 
   })
-
-
   const handleRegistrationChange = (e) => {
     const { name, value } = e.target;
 
@@ -22,25 +20,28 @@ const RegistrationPage = () => {
     }))
 
   }
+  const [showPassword, setShowPassword] = useState(false);
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleRegistrationSubmit = async (e) => {
-e.preventDefault();
+    e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:8000/register', registrationData);  
-        
-         console.log(response.data);
-        alert("successfully register ");
-      }
+      const response = await axios.post('http://localhost:8000/register', registrationData);
+      console.log(response.data);
+      alert("successfully register ");
+    }
     catch (error) {
       console.log(error)
       alert("somthing waints wrong")
     }
     setRegistrationData({
-      fullName:'',
+      fullName: '',
       username: '',
       password: '',
-      email:'',
-      mobileNumber:''
+      email: '',
+      mobileNumber: ''
     })
   }
 
@@ -53,7 +54,7 @@ e.preventDefault();
               <h2 className="card-title text-center mb-4">Registration Form</h2>
               <form onSubmit={handleRegistrationSubmit}>
                 <div className="mb-3">
-                
+
                   <input
                     type="text"
                     className="form-control"
@@ -77,9 +78,9 @@ e.preventDefault();
                     required
                   />
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 input-group">
                   <input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     className="form-control"
                     id="password"
                     name="password"
@@ -88,6 +89,13 @@ e.preventDefault();
                     onChange={handleRegistrationChange}
                     required
                   />
+                  <button
+                    className="btn btn-outline-secondary"
+                    type="button"
+                    onClick={handleTogglePassword}
+                  >
+                    {showPassword ? 'Hide' : 'Show'}
+                  </button>
                 </div>
                 <div className="mb-3">
                   <input
@@ -127,9 +135,5 @@ e.preventDefault();
     </div>
   );
 };
-
-
-
-
 
 export default RegistrationPage;
