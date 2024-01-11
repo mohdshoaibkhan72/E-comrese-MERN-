@@ -51,17 +51,17 @@ const RegistrationPage = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div className="card bg-light">
+          <div className="card bg-light text-dark">
             <div className="card-body">
               <h2 className="card-title text-center mb-4">Registration Form</h2>
               <form onSubmit={handleRegistrationSubmit}>
                 <div className="mb-3">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control bg-light text-dark"
                     id="fullName"
                     name="fullName"
-                    placeholder="Full name"
+                    placeholder="Full Name"
                     value={registrationData.fullName}
                     onChange={handleRegistrationChange}
                     required
@@ -70,7 +70,7 @@ const RegistrationPage = () => {
                 <div className="mb-3">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control bg-light text-dark"
                     id="username"
                     name="username"
                     placeholder="Username"
@@ -81,8 +81,8 @@ const RegistrationPage = () => {
                 </div>
                 <div className="mb-3 input-group">
                   <input
-                    type={showPassword ? "text" : "password"}
-                    className="form-control"
+                    type={showPassword ? 'text' : 'password'}
+                    className="form-control bg-light text-dark"
                     id="password"
                     name="password"
                     placeholder="Password"
@@ -91,20 +91,20 @@ const RegistrationPage = () => {
                     required
                   />
                   <button
-                    className="btn btn-outline-secondary"
+                    className="btn btn-outline-secondary bg-light text-dark"
                     type="button"
                     onClick={handleTogglePassword}
                   >
-                    {showPassword ? "Hide" : "Show"}
+                    {showPassword ? 'Hide' : 'Show'}
                   </button>
                 </div>
                 <div className="mb-3">
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-control bg-light text-dark"
                     id="email"
                     name="email"
-                    placeholder="email"
+                    placeholder="Email"
                     value={registrationData.email}
                     onChange={handleRegistrationChange}
                     required
@@ -112,15 +112,19 @@ const RegistrationPage = () => {
                 </div>
                 <div className="mb-3">
                   <input
-                    type="mobileNumber"
-                    className="form-control"
+                    type="text"
+                    className={`form-control ${mobileNumberError ? 'is-invalid' : ''} bg-light text-dark`}
                     id="mobileNumber"
                     name="mobileNumber"
-                    placeholder="mobileNumber"
+                    placeholder="Mobile Number"
                     value={registrationData.mobileNumber}
                     onChange={handleRegistrationChange}
+                    onBlur={validateMobileNumber}
                     required
                   />
+                  {mobileNumberError && (
+                    <div className="invalid-feedback">{mobileNumberError}</div>
+                  )}
                 </div>
                 <div className="text-center mb-3">
                   <button type="submit" className="btn btn-primary">
