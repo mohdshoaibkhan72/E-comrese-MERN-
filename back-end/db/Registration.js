@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const User = require("./user");
+const User = require("./UserModel");
 const bcrypt = require("bcrypt");
 app.use(cors());
 

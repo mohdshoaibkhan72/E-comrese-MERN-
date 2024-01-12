@@ -1,18 +1,16 @@
 const express = require("express");
-const connectDB = require("./db/connection");
-
+const connectDB = require("./db/DbConnection");
 const app = express();
 const cors = require("cors");
-require("dotenv").config();
-
 const registerUser = require("./db/Registration");
 const login = require("./db/login");
+require("dotenv").config();
 
 //midleware for parsing
 app.use(express.json());
 connectDB();
 
-//anable corsee
+//anable cors
 app.use(cors());
 
 //importing from registration

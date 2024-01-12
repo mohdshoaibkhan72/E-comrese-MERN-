@@ -1,13 +1,15 @@
 const express = require("express");
-const User = require("./user");
+const User = require("./UserModel");
 const app = express();
 const cors = require("cors");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
+
 
 app.use(cors());
 
-const jwt = require("jsonwebtoken");
+
 const login =
   ("/login",
   async (req, res) => {
@@ -36,7 +38,6 @@ const login =
         { name: user.username, userId: user._id },
         process.env.ACCESS_TOKEN_SECRET
       );
-
       // Respond with the token and user details
       res.status(200).json({ accessToken, user: { name: user.username } });
     } catch (error) {

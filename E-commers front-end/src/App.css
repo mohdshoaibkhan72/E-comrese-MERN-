@@ -34,7 +34,7 @@ body {
   }
   
   form p {
-    font-weight: 500;
+    font-weight: 600;
     color: #fff;
     opacity: 0.7;
     font-size: 1.4rem;
@@ -44,9 +44,10 @@ body {
   }
   
   form a {
+    font-weight: 500;
     text-decoration: none;
-    color: #ddd;
-    font-size: 14px;
+    color: #fff;
+    font-size: 13px;
   }
   
   form a:hover {
@@ -167,3 +168,7 @@ body {
    height: 37px;
   }
 
+
+
+
+  

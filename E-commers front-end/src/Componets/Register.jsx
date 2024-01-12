@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import '../App.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Navigate } from "react-router-dom";
 const RegistrationPage = () => {
   const [registrationData, setRegistrationData] = useState({
     fullName: "",
@@ -28,13 +31,14 @@ const RegistrationPage = () => {
 
     try {
 
-      
       const response = await axios.post("http://localhost:8000/register", registrationData);
       console.log(response.data);
-      alert("Successfully registered");
+      toast.success("Regisrer successful!");
+      
+
     } catch (error) {
       console.log(error);
-      alert("Something went wrong");
+      toast.info(" somthing wents wrong ")
     }
 
     // Reset the registrationData after submission
@@ -140,11 +144,12 @@ const RegistrationPage = () => {
           <div className="drop drop-4"></div>
           <div className="drop drop-5"></div>
         </div>
+        <ToastContainer />
             </div>
           </div>
         </div>
       </div>
-    </div>
+   </div>
   );
 };
 
