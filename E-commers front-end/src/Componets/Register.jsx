@@ -28,7 +28,7 @@ const RegistrationPage = () => {
 
     try {
 
-
+      
       const response = await axios.post("http://localhost:8000/register", registrationData);
       console.log(response.data);
       alert("Successfully registered");

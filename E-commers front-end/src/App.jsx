@@ -3,10 +3,16 @@ import Login from './Componets/Login';
 import RegistrationPage from './Componets/Register';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Homerots from './Componets/homerots';
-
+import './App.css'
 const App = () => {
+  var cursor = document.querySelector(".cursor");
+var cursor2 = document.querySelector(".cursor2");
+
+
+
   return (<>
     <div>
+
       <BrowserRouter>
         <Routes>
           <Route path='login'

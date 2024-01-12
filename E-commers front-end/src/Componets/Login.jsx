@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../App.css'
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -31,7 +31,7 @@ const LoginPage = () => {
     }
     
     setLoginData({
-      username: '',
+      email: '',
       password: '',
     });
   };
@@ -54,34 +54,35 @@ const LoginPage = () => {
         <form onSubmit={handleLoginSubmit}>
           <p>Welcome</p>
           <input
-            type="text"
+            type="email"
             className="form-control"
-            id="username"
-            name="username"
-            placeholder="Username"
-            value={loginData.username}
+            id="email"
+            name="email"
+            placeholder="email"
+            value={loginData.email}
             onChange={handleLoginChange}
             required
           />
-          <br />
-          <input
-            type={showPassword ? 'text' : 'password'}
-            className="form-control"
-            id="password"
-            name="password"
-            placeholder="Password"
-            value={loginData.password}
-            onChange={handleLoginChange}
-            required
-          />
-          <br />
-          <button
-            type="button"
-            className="btn btn-primary btn1 "
-            onClick={toggleShowPassword}
-          >
-            {showPassword ? 'Hide password' : 'Show password'}
-          </button>
+          
+            <div className="mb-3 input-group">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    className="form-control bg-light text-dark"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    value={loginData.password}
+                    onChange={handleLoginChange}
+                    required
+                  />
+                  <button
+                    className="btn btn-primary btn1"
+                    type="button"
+                    onClick={toggleShowPassword}
+                  >
+                    {showPassword ? 'Hide' : 'Show'}
+                  </button>
+                </div>
           <button type="submit" className="btn btn-primary btn1">
             Submit
           </button>
