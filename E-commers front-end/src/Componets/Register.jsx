@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+
 const RegistrationPage = () => {
   const [registrationData, setRegistrationData] = useState({
     fullName: "",
@@ -11,6 +13,7 @@ const RegistrationPage = () => {
     email: "",
     mobileNumber: "",
   });
+  const navigate = useNavigate(); 
   const handleRegistrationChange = (e) => {
     const { name, value } = e.target;
 
@@ -32,25 +35,15 @@ const RegistrationPage = () => {
       const response = await axios.post("http://localhost:8000/register", registrationData);
       console.log(response.data);
       toast.success("Regisrer successful!");
-
+      navigate('/');
 
     } catch (error) {
-      console.log(error);
-      toast.info(" somthing wents wrong ")
+      toast.error(error.response.data.message)
     }
-
-    // Reset the registrationData after submission
-    setRegistrationData({
-      fullName: "",
-      username: "",
-      password: "",
-      email: "",
-      mobileNumber: "",
-    });
   };
 
   return <>
-    <div className="body">
+    <div className="body ">
       <div className="container ">
         <div>
           <div className="col-md-6">

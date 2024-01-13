@@ -6,9 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-
 app.use(cors());
-
 
 const login =
   ("/login",
@@ -25,12 +23,12 @@ const login =
       //finding user
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(401).send({ erro: "user not found" });
+        return res.status(401).send({ message: "user not found" });
       }
       //matching password
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(500).send({ eroo: "password is not match " });
+        return res.status(500).send({ message: "password is not match " });
       }
 
       // Password is correct, create JWT token
@@ -42,7 +40,7 @@ const login =
       res.status(200).json({ accessToken, user: { name: user.username } });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Login failed", details: error.message });
+      res.status(500).json({ message: "Login failed", details: error.message });
     }
   });
 
