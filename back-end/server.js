@@ -21,6 +21,7 @@ app.post("/register", registerUser);
 app.post("/login", login);
 
 // adding product in datbase
+
 app.post("/addproduct", Addproduct);
 
 app.listen(8000, () => {

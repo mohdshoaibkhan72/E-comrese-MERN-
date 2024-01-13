@@ -13,9 +13,9 @@ const ProductModel = mongoose.model('Product', ProductSchema);
 
 const Addproduct = async (req, res) => {
   try {
-    const { productId, productName, productPrice, productDescription } = req.body;
+    const { productId, productName, productPrice, productDescription,productPhoto } = req.body;
 
- if(!productId || !productName || !productPrice || !productDescription)
+ if(!productId || !productName || !productPrice || !productDescription || !productPhoto)
  {
   return res.status(500).json({error: "pleas provide alla filds"});
  }
@@ -26,6 +26,7 @@ const Addproduct = async (req, res) => {
       productName,
       productPrice,
       productDescription,
+      productPhoto,
     });
 
     // Save the product to the database
@@ -37,6 +38,6 @@ const Addproduct = async (req, res) => {
   }
 };
 
-app.post("/addproduct", Addproduct);
+
 
 module.exports = Addproduct;

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import '../App.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Navigate } from "react-router-dom";
 const RegistrationPage = () => {
   const [registrationData, setRegistrationData] = useState({
     fullName: "",
@@ -34,7 +32,7 @@ const RegistrationPage = () => {
       const response = await axios.post("http://localhost:8000/register", registrationData);
       console.log(response.data);
       toast.success("Regisrer successful!");
-      
+
 
     } catch (error) {
       console.log(error);
@@ -51,106 +49,108 @@ const RegistrationPage = () => {
     });
   };
 
-  return (
-    <div className="container ">
-      <div>
-        <div className="col-md-6">
-          <div className="text-dark">
-            <div className="">
-              
-              <form onSubmit={handleRegistrationSubmit}>
-              <p>Registraio Form</p>
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    className="form-control bg-light text-dark"
-                    id="fullName"
-                    name="fullName"
-                    placeholder="Full Name"
-                    value={registrationData.fullName}
-                    onChange={handleRegistrationChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    className="form-control bg-light text-dark"
-                    id="username"
-                    name="username"
-                    placeholder="Username"
-                    value={registrationData.username}
-                    onChange={handleRegistrationChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3 input-group">
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    className="form-control bg-light text-dark"
-                    id="password"
-                    name="password"
-                    placeholder="Password"
-                    value={registrationData.password}
-                    onChange={handleRegistrationChange}
-                    required
-                  />
-                  <button
-                    className="btn btn-primary btn1"
-                    type="button"
-                    onClick={handleTogglePassword}
-                  >
-                    {showPassword ? 'Hide' : 'Show'}
-                  </button>
-                </div>
-                <div className="mb-3">
-                  <input
-                    type="email"
-                    className="form-control bg-light text-dark"
-                    id="email"
-                    name="email"
-                    placeholder="Email"
-                    value={registrationData.email}
-                    onChange={handleRegistrationChange}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    className="form-control bg-light text-dark"
-                    id="mobileNumber"
-                    name="mobileNumber"
-                    placeholder="Mobile Number"
-                    value={registrationData.mobileNumber}
-                    onChange={handleRegistrationChange}
-                    required
-                  />
+  return <>
+    <div className="body">
+      <div className="container ">
+        <div>
+          <div className="col-md-6">
+            <div className="text-dark">
+              <div className="">
 
+                <form onSubmit={handleRegistrationSubmit}>
+                  <p>Registraio Form</p>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      className="form-control bg-light text-dark"
+                      id="fullName"
+                      name="fullName"
+                      placeholder="Full Name"
+                      value={registrationData.fullName}
+                      onChange={handleRegistrationChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      className="form-control bg-light text-dark"
+                      id="username"
+                      name="username"
+                      placeholder="Username"
+                      value={registrationData.username}
+                      onChange={handleRegistrationChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3 input-group">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      className="form-control bg-light text-dark"
+                      id="password"
+                      name="password"
+                      placeholder="Password"
+                      value={registrationData.password}
+                      onChange={handleRegistrationChange}
+                      required
+                    />
+                    <button
+                      className="btn btn-primary btn1"
+                      type="button"
+                      onClick={handleTogglePassword}
+                    >
+                      {showPassword ? 'Hide' : 'Show'}
+                    </button>
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="email"
+                      className="form-control bg-light text-dark"
+                      id="email"
+                      name="email"
+                      placeholder="Email"
+                      value={registrationData.email}
+                      onChange={handleRegistrationChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <input
+                      type="text"
+                      className="form-control bg-light text-dark"
+                      id="mobileNumber"
+                      name="mobileNumber"
+                      placeholder="Mobile Number"
+                      value={registrationData.mobileNumber}
+                      onChange={handleRegistrationChange}
+                      required
+                    />
+
+                  </div>
+                  <div className="text-center mb-3">
+                    <button type="submit" className="btn btn-primary">
+                      Register
+                    </button>
+                  </div>
+                  <p className="text-center">
+                    Already registered? <Link to="/login">Login Here</Link>
+                  </p>
+                </form>
+                <div className="drops">
+                  <div className="drop drop-1"></div>
+                  <div className="drop drop-2"></div>
+                  <div className="drop drop-3"></div>
+                  <div className="drop drop-4"></div>
+                  <div className="drop drop-5"></div>
                 </div>
-                <div className="text-center mb-3">
-                  <button type="submit" className="btn btn-primary">
-                    Register
-                  </button>
-                </div>
-                <p className="text-center">
-                  Already registered? <Link to="/login">Login Here</Link>
-                </p>
-              </form>
-              <div className="drops">
-          <div className="drop drop-1"></div>
-          <div className="drop drop-2"></div>
-          <div className="drop drop-3"></div>
-          <div className="drop drop-4"></div>
-          <div className="drop drop-5"></div>
-        </div>
-        <ToastContainer />
+                <ToastContainer />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-   </div>
-  );
+      </div></div>
+    ;
+  </>
 };
 
 export default RegistrationPage;
