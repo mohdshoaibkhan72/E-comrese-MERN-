@@ -13,11 +13,15 @@ const ProductModel = mongoose.model('Product', ProductSchema);
 
 const Addproduct = async (req, res) => {
   try {
-    const { productId, productName, productPrice, productDescription,productPhoto } = req.body;
+    const { productId, productName, productPrice, productDescription,file } = req.body;
+    console.log(req.body)
 
- if(!productId || !productName || !productPrice || !productDescription || !productPhoto)
+ if(!productId || !productName || !productPrice || !productDescription)
  {
-  return res.status(500).json({error: "pleas provide alla filds"});
+  
+  // return res.status(500).json({error: "pleas provide alla filds"});
+  return res.status(403).json({ message: "custom error" });
+  
  }
 
     // Storing the data
@@ -26,15 +30,17 @@ const Addproduct = async (req, res) => {
       productName,
       productPrice,
       productDescription,
-      productPhoto,
+      file,
     });
 
     // Save the product to the database
     await productsave.save();
     res.status(200).json({ message: "Product added successfully" });
+    
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+
+    res.status(403).json({ message: "custom error" });
   }
 };
 

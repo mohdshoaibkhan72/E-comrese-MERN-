@@ -4,9 +4,11 @@ const app = express();
 const cors = require("cors");
 const User = require("./UserModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 app.use(cors());
 
-const registerUser = async (req, res) => {
+ const registerUser = ("/register", async (req, res) => {
   try {
     const { fullName, username, password, email, mobileNumber } = req.body;
 
@@ -39,13 +41,20 @@ const registerUser = async (req, res) => {
       email,
       mobileNumber,
     });
-
     await user.save();
     res.status(201).json({ message: "Registration is successful" });
+
+    // Registraation done, create JWT token
+    const accessToken = jwt.sign(
+      { name: user.username, userId: user._id },
+      process.env.ACCESS_TOKEN_SECRET
+    );
+    // Respond with the token and user details
+    res.status(200).json({ accessToken, user: { name: user.username } });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-};
+});
 
 module.exports = registerUser;

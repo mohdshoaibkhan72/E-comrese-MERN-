@@ -25,8 +25,8 @@ const ProductSchema = new mongoose.Schema({
     trim: true,
     maxlength: 50,
   },
-  productPhoto: {
-    data: Buffer, // Use Buffer type to store binary data (image)
+  file: {
+    data: Buffer, 
     contentType: String
   },
 });
