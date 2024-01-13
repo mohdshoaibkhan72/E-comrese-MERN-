@@ -5,6 +5,8 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Homerots from './Componets/homerots';
 import './App.css'
 const App = () => {
+
+
   return (<>
     <div>
 
