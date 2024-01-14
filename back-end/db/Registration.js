@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 app.use(cors());
 
- const registerUser = ("/register", async (req, res) => {
+ const registerUser = (async (req, res) => {
   try {
     const { fullName, username, password, email, mobileNumber } = req.body;
 
@@ -42,15 +42,21 @@ app.use(cors());
       mobileNumber,
     });
     await user.save();
-    res.status(201).json({ message: "Registration is successful" });
+    //send the success msg
 
     // Registraation done, create JWT token
     const accessToken = jwt.sign(
       { name: user.username, userId: user._id },
       process.env.ACCESS_TOKEN_SECRET
     );
-    // Respond with the token and user details
-    res.status(200).json({ accessToken, user: { name: user.username } });
+    console.log(accessToken)
+    res.status(201).json({
+      success: true,
+      message: "Registration is successful",
+      accessToken,
+      user: { name: user.username },
+    });
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

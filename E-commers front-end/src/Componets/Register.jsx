@@ -47,7 +47,7 @@ const RegistrationPage = () => {
       // Update context values
       setAccessToken(success.accessToken);
       setUser(success.user);
-
+  
 
       // Navigate to the desired page
       navigate('/')
@@ -59,7 +59,7 @@ const RegistrationPage = () => {
 
   return <>
 
-    {accessToken ? <Navigate to="/ " /> :
+    {accessToken ? <Navigate to="/ "/>  :
       <div className="body">
         <div className="container ">
           <div>
