@@ -3,10 +3,6 @@ import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
-import { AppContext } from "../Context";
-import { useContext } from "react";
-
 const RegistrationPage = () => {
   const { accessToken, setAccessToken, user, setUser } = useContext(AppContext);
   const [registrationData, setRegistrationData] = useState({
@@ -16,7 +12,6 @@ const RegistrationPage = () => {
     email: "",
     mobileNumber: "",
   });
-  const navigate = useNavigate();
   const handleRegistrationChange = (e) => {
     const { name, value } = e.target;
 
@@ -40,17 +35,6 @@ const RegistrationPage = () => {
       console.log(success.data);
       toast.success("Regisrer successful!");
 
-      localStorage.setItem("accessToken", success.accessToken);
-      localStorage.setItem("user", JSON.stringify(success.user));
-
-      // Update context values
-      // Update context values
-      setAccessToken(success.accessToken);
-      setUser(success.user);
-  
-
-      // Navigate to the desired page
-      navigate('/')
 
     } catch (error) {
       toast.error(error.response.data.message)
@@ -58,14 +42,12 @@ const RegistrationPage = () => {
   };
 
   return <>
-
-    {accessToken ? <Navigate to="/ "/>  :
-      <div className="body">
-        <div className="container ">
-          <div>
-            <div className="col-md-6">
-              <div className="text-dark">
-                <div className="">
+    <div className="body">
+      <div className="container ">
+        <div>
+          <div className="col-md-6">
+            <div className="text-dark">
+              <div className="">
 
                   <form onSubmit={handleRegistrationSubmit}>
                     <p>Registraio Form</p>

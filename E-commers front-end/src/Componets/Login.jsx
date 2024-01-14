@@ -4,9 +4,6 @@ import axios from "axios";
 import "../App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import { AppContext } from "../Context";
-import { useContext } from "react";
 
 
 const LoginPage = () => {
@@ -14,7 +11,7 @@ const LoginPage = () => {
 
 
   const [loginData, setLoginData] = useState({ email: "", password: "", });
-  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   
   const toggleShowPassword = () => { setShowPassword((prevShowPassword) => !prevShowPassword); };
@@ -26,27 +23,22 @@ const LoginPage = () => {
     try {
       const response = await axios.post("http://localhost:8000/login", loginData);
       const success = response.data;
-      console.log(success);
+
       if (success) {
-
-
         toast.success("Login successful!");
-        //use navigate...her     
-        localStorage.setItem("accessToken", success.accessToken)
-        localStorage.setItem("user", JSON.stringify(success.user))
-        setAccessToken(success.accessToken)
-        setUser(success.user)
-        navigate('/');
+        setTimeout(() => {
+          window.location.href = "http://localhost:5173/";
+        }, 2000);
+
       }
       else {
         toast.info("incorect user name and password");
       }
     } catch (error) {
-
-      toast.error(error.response.data.message);
+      toast.info("somthing wents wrong");
 
     }
-
+    setLoginData({ email: "", password: "", });
   };
 
   const handleLoginChange = (e) => {

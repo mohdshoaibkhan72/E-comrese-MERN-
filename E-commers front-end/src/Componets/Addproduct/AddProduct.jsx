@@ -46,7 +46,8 @@ const AdProductForm = () => {
         toast("Item added in database");
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.error(error);
+      toast.error("Failed to add item to the database");
     }
     setFormData({
       productId: "",
@@ -59,8 +60,7 @@ const AdProductForm = () => {
   };
   return (
     <>
-      <ToastContainer />
-      <div className="body"></div>
+       <ToastContainer />
       <div className="container mt-4">
         <form onSubmit={handleSubmit}>
           <p>Add product Form</p>

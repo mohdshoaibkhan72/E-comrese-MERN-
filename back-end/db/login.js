@@ -8,7 +8,10 @@ require("dotenv").config();
 
 app.use(cors());
 
-const login =(async (req, res) => {
+
+const login =
+  ("/login",
+  async (req, res) => {
     try {
       const { email, password } = req.body;
       //validation for chek inputs and pasword
