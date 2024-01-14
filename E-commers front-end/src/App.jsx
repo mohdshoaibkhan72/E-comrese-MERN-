@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Login from './Componets/Login';
 import RegistrationPage from './Componets/Register';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Homerots from './Componets/homerots';
+import Homerots from './Componets/Navbar';
 import './App.css'
 import AdProductForm from './Componets/Addproduct/addproduct';
 import { AppContext } from './Context';
-
+import Home from './Componets/Home';
 const App = () => {
   const [accessToken, setAccessToken] = useState(null)
   const [user, setUser] = useState(null)
@@ -24,21 +24,23 @@ const App = () => {
   },[])
 
 
-  return (<>
-    <AppContext.Provider value={{ accessToken, setAccessToken, user, setUser }}>
+  return (<> 
+  
+    <AppContext.Provider value={{ accessToken, setAccessToken, user, setUser  }}>
       <div>
-        <BrowserRouter>
+    
+        <BrowserRouter>   
+         <Homerots></Homerots>
           <Routes>
-            <Route path='login'
+             <Route path='/'
+              element={<Home/>} />
+            <Route path='/login'
               element={<Login />} />
-            <Route path='register'
+            <Route path='/register'
               element={<RegistrationPage />} />
-            <Route path='/'
-              element={<Homerots />} />
             <Route path='/addproduct' element={<AdProductForm />} />
           </Routes>
         </BrowserRouter>
-
       </div>
     </AppContext.Provider>
 

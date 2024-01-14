@@ -24,6 +24,19 @@ app.post("/login", login);
 
 // adding product in datbase
 app.post("/addproduct", upload.single("file") ,Addproduct);
+// Import the Getproduct function
+
+
+const Getproduct = require("./product Api/getproduct");
+// Define a route for getting products
+app.get("/getproducts", Getproduct);
+
+
+app.get("/", (req, res) => {
+  console.log(path.join(__dirname, "../public"));
+
+});
+
 
 app.listen(8000, () => {
   console.log("server is runing in port no 8000");

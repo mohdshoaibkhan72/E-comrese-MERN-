@@ -1,174 +1,209 @@
-*{
-    margin: 0px;
-} 
+* {
+  margin: 0px;
+}
 
 .body {
-    background: linear-gradient(45deg, #FC466B, #3F5EFB);
-    height: 100vh;
-    font-family: 'Montserrat', sans-serif;
-  }
-  
-  .container {
-    position: absolute;
-   display: flex;
-   justify-content: center;
-    transform: translate(-50%, -50%);
-    top: 49%;
-    left: 50%;
-  }
-  
-  form {
-    background: rgba(255, 255, 255, 0.3);
-    padding: 3em;
-    height: auto;
-    width: max-content;
-    border-radius: 20px;
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    position: relative;
-    justify-content: center;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  form p {
-    font-weight: 600;
-    color: #fff;
-    opacity: 0.7;
-    font-size: 1.4rem;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  form a {
-    font-weight: 500;
-    text-decoration: none;
-    color: #fff;
-    font-size: 13px;
-  }
-  
-  form a:hover {
-    text-shadow: 2px 2px 6px #00000040;
-  }
-  
-  form a:active {
-    text-shadow: none;
-  }
-  
-  form input {
-    background: transparent;
-    width: 200px;
-    padding: 1em;
-    margin-bottom: 2em;
-    border: none;
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5000px;
-    backdrop-filter: blur(5px);
-    box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
-    color: #fff;
-    font-family: Montserrat, sans-serif;
-    font-weight: 500;
-    transition: all 0.2s ease-in-out;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  form input:hover {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  form input[type="email"]:focus,
-  form input[type="password"]:focus {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  form input[type="button"] {
-    margin-top: 10px;
-    width: 150px;
-    font-size: 1rem;
-  }
-  
-  form input[type="button"]:hover {
-    cursor: pointer;
-  }
-  
-  form input[type="button"]:active {
-    background: rgba(255, 255, 255, 0.2);
-  }
-  
-  form:hover {
-    margin: 5px;
-  }
-  
-  ::placeholder {
-    font-family: Montserrat, sans-serif;
-    font-weight: 400;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  }
-  
-  .drop {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 10px 10px 60px -8px rgba(0, 0, 0, 0.2);
-    position: absolute;
-    transition: all 0.2s ease;
-  }
-  
-  .drop-1 {
-    height: 80px;
-    width: 80px;
-    top: -20px;
-    left: 400px;
-    z-index: -1;
-  }
-  
-  .drop-2 {
-    height: 80px;
-    width: 80px;
-    bottom: -30px;
-    right: 410px;
-    
-  }
-  
-  .drop-3 {
-    height: 100px;
-    width: 100px;
-    bottom: 120px;
-    right: 390px;
-    z-index: -1;
-  }
-  
-  .drop-4 {
-    height: 120px;
-    width: 120px;
-    top: -40px;
-    right: 390px;
-  }
-  
-  .drop-5 {
-    height: 7.73vh;
-    width: 7.7vh;
-    top: 40vh;
-    left: 70vh;
-    z-index: -1;
-  }
-  
-  
-  .btn1{
-  
-   height: 37px;
-  }
+  background: linear-gradient(45deg, #fc466b, #3f5efb);
+  height: 90vh;
+  font-family: "Montserrat", sans-serif;
+}
+.navbar {
+  background: linear-gradient(45deg, #fc466b, #3f5efb);
+  height: 10vh;
+}
+.ecomrse {
+  color: white;
+}
+.container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  top: 49%;
+  left: 50%;
+}
 
+form {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 3em;
+  margin-top: 5rem;
+  height: auto;
+  width: max-content;
+  border-radius: 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
 
+form p {
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.7;
+  font-size: 1.4rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
 
+form a {
+  font-weight: 500;
+  text-decoration: none;
+  color: #fff;
+  font-size: 13px;
+}
 
-  
+form a:hover {
+  text-shadow: 2px 2px 6px #00000040;
+}
+
+form a:active {
+  text-shadow: none;
+}
+
+form input {
+  background: transparent;
+  width: 200px;
+  padding: 1em;
+  margin-bottom: 2em;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5000px;
+  backdrop-filter: blur(5px);
+  box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+form input:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
+}
+
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
+}
+
+form input[type="button"] {
+  margin-top: 10px;
+  width: 150px;
+  font-size: 1rem;
+}
+
+form input[type="button"]:hover {
+  cursor: pointer;
+}
+
+form input[type="button"]:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.drop:hover {
+  margin: 10px;
+}
+
+::placeholder {
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.drop {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 10px 10px 60px -8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  transition: all 0.2s ease;
+}
+
+.drop-1 {
+  height: 80px;
+  width: 80px;
+  top: 200px;
+  left: 400px;
+  z-index: -1;
+}
+
+.drop-2 {
+  height: 80px;
+  width: 80px;
+  bottom: -30px;
+  right: 410px;
+}
+
+.drop-3 {
+  height: 100px;
+  width: 100px;
+  bottom: 120px;
+  right: 390px;
+  z-index: -1;
+}
+
+.drop-4 {
+  height: 120px;
+  width: 120px;
+  top: 40px;
+  right: 390px;
+}
+
+.drop-5 {
+  height: 7.73vh;
+  width: 7.7vh;
+  top: 8vh;
+  left: 55vh;
+  z-index: -1;
+}
+
+.btn1 {
+  height: 37px;
+}
+
+/* this is for home routes */
+#navbarNav{
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: white;
+  margin: 10px;
+  border: 1px solid #ddd; /* Add a border for better visibility */
+  transition: transform 0.3s; /* Add a smooth transition effect */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Enlarge the card on hover */
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.card-text {
+  color: #555;
+}
