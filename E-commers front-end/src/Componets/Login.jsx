@@ -1,104 +1,110 @@
-import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { AppContext } from "../Context";
 
 const LoginPage = () => {
-  const { accessToken, setAccessToken, user, setUser } = useContext(AppContext);
+  const { setAccessToken, setUser } = useContext(AppContext);
+  const navigate = useNavigate();
 
-
-  const [loginData, setLoginData] = useState({ email: "", password: "", });
-
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
-  
-  const toggleShowPassword = () => { setShowPassword((prevShowPassword) => !prevShowPassword); };
 
-  //submit function
+  const toggleShowPassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post("http://localhost:8000/login", loginData);
-      const success = response.data;
+      const { accessToken, user } = response.data;
 
-      if (success) {
+      if (accessToken) {
+        // Store tokens in localStorage
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("user", JSON.stringify(user));
+
         toast.success("Login successful!");
-        setTimeout(() => {
-          window.location.href = "http://localhost:5173/";
-        }, 2000);
+        setAccessToken(accessToken);
+        setUser(user);
 
-      }
-      else {
-        toast.info("incorect user name and password");
+        // Redirect to the home page after successful login
+        navigate("/");
+      } else {
+        toast.info("Incorrect username and password");
       }
     } catch (error) {
-      toast.info("somthing wents wrong");
-
+      toast.error("Something went wrong");
     }
-    setLoginData({ email: "", password: "", });
+    setLoginData({ email: "", password: "" });
   };
 
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
-    setLoginData((prevData) => ({ ...prevData, [name]: value, }));
+    setLoginData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   return (
     <>
-      {
-        accessToken ?
-          <Navigate to="/" /> :
-          <>
-            <div className="body">
-              <div className="container">
-                <form onSubmit={handleLoginSubmit}>
-                  <p>Welcome</p>
-                  <input type="email" className="form-control" id="email" name="email" placeholder="email" value={loginData.email} onChange={handleLoginChange} required />
+      <div className="body">
+        <div className="container">
+          <form onSubmit={handleLoginSubmit}>
+            <p>Welcome</p>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={loginData.email}
+              onChange={handleLoginChange}
+              required
+            />
 
-                  <div className="mb-3 input-group">
-                    <input type={showPassword ? "text" : "password"}
-                      className="form-control bg-light text-dark"
-                      id="password"
-                      name="password"
+            <div className="mb-3 input-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control bg-light text-dark"
+                id="password"
+                name="password"
+                placeholder="Password"
+                value={loginData.password}
+                onChange={handleLoginChange}
+                required
+              />
+              <button
+                className="btn btn-primary btn1"
+                type="button"
+                onClick={toggleShowPassword}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+            <button type="submit" className="btn btn-primary btn1">
+              Submit
+            </button>
 
-                      placeholder="Password"
-                      value={loginData.password}
-                      onChange={handleLoginChange}
-                      required
-                    />
-                    <button
-                      className="btn btn-primary btn1"
-                      type="button"
-                      onClick={toggleShowPassword}
-                    >
-                      {showPassword ? "Hide" : "Show"}
-                    </button>
-                  </div>
-                  <button type="submit" className="btn btn-primary btn1">
-                    Submit
-                  </button>
+            <br />
+            <Link to="/forgot-password">Forgot Password?</Link>
+            <br />
+            <p className="text-center">Not registered yet?</p>
+            <Link to="/register">Register Here</Link>
+          </form>
 
-                  <br />
-                  <a href="#">Forgot Password?</a>
-                  <br />
-                  <a className="text-center">Not registered yet?</a>
-                  <Link to="/register">Register Here</Link>
-                </form>
-
-                <div className="drops">
-                  <div className="drop drop-1"></div>
-                  <div className="drop drop-2"></div>
-                  <div className="drop drop-3"></div>
-                  <div className="drop drop-4"></div>
-                  <div className="drop drop-5"></div>
-                </div>
-              </div></div>
-            <ToastContainer />
-          </>
-      }
+          <div className="drops">
+            <div className="drop drop-1"></div>
+            <div className="drop drop-2"></div>
+            <div className="drop drop-3"></div>
+            <div className="drop drop-4"></div>
+            <div className="drop drop-5"></div>
+          </div>
+        </div>
+      </div>
+      <ToastContainer />
     </>
   );
 };

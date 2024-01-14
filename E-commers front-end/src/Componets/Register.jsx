@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, Navigate } from "react-router-dom";
+import { Link,Navigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from "react";
+
+
+import { AppContext } from "../Context";
 const RegistrationPage = () => {
   const { accessToken, setAccessToken, user, setUser } = useContext(AppContext);
   const [registrationData, setRegistrationData] = useState({
@@ -32,10 +36,16 @@ const RegistrationPage = () => {
 
       const response = await axios.post("http://localhost:8000/register", registrationData);
       const success = response.data;
-      console.log(success.data);
-      toast.success("Regisrer successful!");
+      toast.success("Registration successful!");
 
+      // Store tokens in localStorage
+      localStorage.setItem("accessToken", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
+      // Update state using context
+      setAccessToken(response.data.token);
+      setUser(response.data.user);
+      return <Navigate to="/" />;
     } catch (error) {
       toast.error(error.response.data.message)
     }
@@ -141,7 +151,7 @@ const RegistrationPage = () => {
             </div>
           </div>
         </div></div>
-    }
+    
   </>
 };
 
