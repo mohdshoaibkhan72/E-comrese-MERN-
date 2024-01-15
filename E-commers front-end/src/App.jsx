@@ -4,7 +4,7 @@ import RegistrationPage from './Componets/Register';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Homerots from './Componets/Navbar';
 import './App.css'
-import AdProductForm from './Componets/Addproduct/addproduct';
+import AdProductForm from './Componets/Addproduct/AddProduct';
 import { AppContext } from './Context';
 import Home from './Componets/Home';
 const App = () => {

@@ -3,8 +3,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const AdProductForm = () => {
+
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();
+  const accessTokens = localStorage.getItem('accessToken');
+
+  React.useEffect(() => {
+    if (!accessTokens || !user) {
+      navigate("/");
+    }
+  }, [accessTokens, user, navigate]);
+  
+
   const [formData, setFormData] = useState({
     productId: "",
     productName: "",
@@ -34,7 +49,6 @@ const AdProductForm = () => {
     form.append("productPrice",formData.productPrice)
     form.append("productDescription",formData.productDescription)
     form.append("file",formData.productPhoto)
-
     console.log(Object.fromEntries(form))
 
     try {
@@ -61,6 +75,7 @@ const AdProductForm = () => {
   return (
     <>
        <ToastContainer />
+       <div className="body"></div>
       <div className="container mt-4">
         <form onSubmit={handleSubmit}>
           <p>Add product Form</p>

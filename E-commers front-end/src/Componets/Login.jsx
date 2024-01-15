@@ -8,6 +8,7 @@ import { AppContext } from "../Context";
 const LoginPage = () => {
   const { setAccessToken, setUser } = useContext(AppContext);
   const navigate = useNavigate();
+   
 
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -22,6 +23,8 @@ const LoginPage = () => {
     try {
       const response = await axios.post("http://localhost:8000/login", loginData);
       const { accessToken, user } = response.data;
+
+  
 
       if (accessToken) {
         // Store tokens in localStorage
