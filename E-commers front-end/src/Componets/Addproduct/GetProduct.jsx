@@ -27,11 +27,10 @@ const ProductList = () => {
       <div className="card-container">
         {products.map((product) => (
           <div key={product.productId} className="card"   >
-            <img 
-              src={`http://localhost:8000/p11.png`}
+            <img
+              src={`http://localhost:8000/${product.productPhoto.filename}`} 
               alt={product.productName}
-            
-              className="card-img-top "
+              className="card-img-top"
             />
             <div className="card-body">
               <h5 className="card-title">{product.productName}</h5>

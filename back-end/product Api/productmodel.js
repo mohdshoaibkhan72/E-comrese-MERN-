@@ -26,9 +26,11 @@ const ProductSchema = new mongoose.Schema({
     maxlength: 50,
   },
   productPhoto: {
-    filename: String, // Add a field to store the filename
+    filename: {
+      type: String,
+      required: true,
+    },
   },
-  
 });
 
 module.exports = ProductSchema;
