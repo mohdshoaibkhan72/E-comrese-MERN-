@@ -1,13 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link,Navigate } from "react-router-dom";
+import { Link,Navigate,useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from "react";
 
 
 import { AppContext } from "../Context";
+
 const RegistrationPage = () => {
+
+const navigate=useNavigate();
+  const users = JSON.parse(localStorage.getItem('user'));
+ 
+  const accessTokens = localStorage.getItem('accessToken');
+  
+  React.useEffect(()=>{
+     if(accessTokens || users){
+      navigate('/');
+    }
+  
+  })
+
   const { accessToken, setAccessToken, user, setUser } = useContext(AppContext);
   const [registrationData, setRegistrationData] = useState({
     fullName: "",
@@ -154,5 +168,6 @@ const RegistrationPage = () => {
     
   </>
 };
+
 
 export default RegistrationPage;

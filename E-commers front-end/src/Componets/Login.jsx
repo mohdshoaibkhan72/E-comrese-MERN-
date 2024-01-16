@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useFetcher, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,7 +7,17 @@ import { AppContext } from "../Context";
 
 const LoginPage = () => {
   const { setAccessToken, setUser } = useContext(AppContext);
+  
+  const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
+  const accessTokens = localStorage.getItem('accessToken');
+  
+  React.useEffect(()=>{
+     if(accessTokens || user){
+      navigate('/');
+    }
+  
+  })
    
 
   const [loginData, setLoginData] = useState({ email: "", password: "" });

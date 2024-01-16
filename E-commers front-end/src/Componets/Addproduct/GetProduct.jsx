@@ -16,7 +16,7 @@ const ProductList = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures that this effect runs once when the component mounts
+  }, []);
 
   const handleAddToCart = (productId) => {
     console.log(`Product with ID ${productId} added to cart`);
@@ -26,7 +26,13 @@ const ProductList = () => {
     <div>
       <div className="card-container">
         {products.map((product) => (
-          <div key={product.productId} className="card">
+          <div key={product.productId} className="card"   >
+            <img 
+              src={`http://localhost:8000/p11.png`}
+              alt={product.productName}
+            
+              className="card-img-top "
+            />
             <div className="card-body">
               <h5 className="card-title">{product.productName}</h5>
               <p className="card-text">{product.productDescription}</p>

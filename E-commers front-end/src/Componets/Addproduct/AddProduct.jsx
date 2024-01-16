@@ -133,6 +133,7 @@ const AdProductForm = () => {
               placeholder="add photo"
               className="form-control"
               name="productPhoto"
+              
               onChange={handleFileChange}
             />
           </div>

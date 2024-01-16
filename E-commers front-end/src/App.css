@@ -207,3 +207,8 @@ form input[type="button"]:active {
 .card-text {
   color: #555;
 }
+
+img{
+width: max-content;
+  height: 100px;
+}
