@@ -173,7 +173,7 @@ form input[type="button"]:active {
 }
 
 /* this is for home routes */
-#navbarNav{
+#navbarNav {
   color: #fff;
   font-weight: 600;
   font-size: 20px;
@@ -208,7 +208,19 @@ form input[type="button"]:active {
   color: #555;
 }
 
-img{
-width: max-content;
+img {
+  width: max-content;
   height: 100px;
+}
+.cards {
+  height: auto;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+}
+.cardbox {
+  width: 220px;
+}
+.cardbox img {
+  height: 25vh;
 }
