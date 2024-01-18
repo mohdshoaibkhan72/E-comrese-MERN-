@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+
+
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
@@ -10,6 +12,7 @@ const ProductList = () => {
         const response = await axios.get("http://localhost:8000/getproducts");
         console.log(response.data);
         setProducts(response.data);
+      
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -18,10 +21,32 @@ const ProductList = () => {
     fetchData();
   }, []);
 
-  const handleAddToCart = (productId) => {
+  const handleAddToCart = async (productId) => {
     console.log(`Product with ID ${productId} added to cart`);
+
   };
 
+  const handledeleltbuton = async (productId) => {
+    try {
+      const response = await axios.delete("http://localhost:8000/deletproduct", {
+        data: { productId },  // Send productId in the request body
+      });
+      console.log(response);
+  
+      if (response.status === 200) {
+        console.log(`Product with ID ${productId} deleted successfully.`);
+      } else {
+        console.log(`Failed to delete product with ID ${productId}.`);
+      }
+  
+      // Assuming you want to refresh the product list after deletion, you can refetch the data
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+  
+ 
   return (
     <>
       <div className="cards">
@@ -39,6 +64,9 @@ const ProductList = () => {
                 <button
                   className="btn btn-primary"
                   onClick={() => handleAddToCart(product.productId)}>Add to Cart</button>
+
+<button className="btn btn-primary" onClick={() => handledeleltbuton(product.productId)}>Delete</button>
+
               </div>
             </div>
           ))}

@@ -89,6 +89,9 @@ function Navbar() {
             </Link>
           )}
         </div>
+        <Link to="/changepassword">
+          <button  className='btn btn-primary'>changePassword</button>
+        </Link>
       </div>
     </nav>
   );

@@ -10,12 +10,19 @@ const ProductModel = mongoose.model("Product", ProductSchema);
 
 const Deleteproduct = async (req, res) => {
   try {
-    const products = await ProductModel.findOneAndDelete({ productId: "122" });
+    const { productId } = req.body;
+    if (!productId) {
+      return res.status(400).json({ message: "product  id is requires" });
+    }
+    const products = await ProductModel.findOneAndDelete({
+      productId: `${productId}`,
+    });
 
-    if (products) {
+    if (products.ok) {
       console.log("deletes succesfully ");
+      res.status(200).json({ message: "Dlelted successfuly " });
     } else {
-      console.log("Product  not deleted s or founds");
+      console.log("Product  not deleted  or founds");
     }
 
     // Send the products as a response

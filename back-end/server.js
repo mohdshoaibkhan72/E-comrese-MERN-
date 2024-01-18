@@ -8,6 +8,10 @@ const login = require("./db/login");
 const multer = require("multer");
 const upload = multer({ dest: 'data/images/' });
 const path = require("path");
+const Getproduct = require("./product Api/getproduct");
+
+const Chngepswd = require("./Pasword/chnagepswd");
+const Deleteproduct = require("./product Api/deletproduct");
 
 // Middleware for parsing JSON
 app.use(express.json());
@@ -28,18 +32,19 @@ app.post("/login", login);
 app.post("/addproduct", upload.single("file"), Addproduct);
 
 // Route for getting products
-const Getproduct = require("./product Api/getproduct");
+
 app.get("/getproducts", Getproduct);
+app.get("/getemail", Chngepswd);
 
 // Serve static files from "data/productimages"
-app.use('/', express.static('data/images'));
+app.use("/", express.static("data/images"));
 
-// Root route - Send a response or a file if needed
-app.get("/", (req, res) => {
-  console.log(path.join(__dirname, "../public"));
-  // Example: Sending a response
-  res.send("Welcome to the root route!");
-});
+//delted product
+
+app.delete("/deletproduct/", Deleteproduct);
+
+//change paswd
+app.put("/changePasword", Chngepswd);
 
 // Start the server on port 8000
 app.listen(8000, () => {

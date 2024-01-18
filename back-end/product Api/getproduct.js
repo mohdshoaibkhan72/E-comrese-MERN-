@@ -11,10 +11,8 @@ const ProductModel = mongoose.model("Product", ProductSchema);
 
 const Getproduct = async (req, res) => {
   try {
-
     const products = await ProductModel.find();
-   
- 
+
     // Send the products as a response
     res.status(200).json(products);
   } catch (error) {
