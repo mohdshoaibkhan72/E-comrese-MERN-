@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 
-
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
@@ -12,7 +11,7 @@ const ProductList = () => {
         const response = await axios.get("http://localhost:8000/getproducts");
         console.log(response.data);
         setProducts(response.data);
-      
+
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -28,25 +27,23 @@ const ProductList = () => {
 
   const handledeleltbuton = async (productId) => {
     try {
-      const response = await axios.delete("http://localhost:8000/deletproduct", {
-        data: { productId },  // Send productId in the request body
-      });
+      const response = await axios.delete(`http://localhost:8000/deletproduct/${productId}`);
       console.log(response);
   
       if (response.status === 200) {
         console.log(`Product with ID ${productId} deleted successfully.`);
+        // Optionally, you can update the UI optimistically here
       } else {
         console.log(`Failed to delete product with ID ${productId}.`);
       }
-  
-      // Assuming you want to refresh the product list after deletion, you can refetch the data
-      fetchData();
     } catch (error) {
       console.error("Error deleting product:", error);
+      
     }
+   
   };
   
- 
+
   return (
     <>
       <div className="cards">
@@ -56,7 +53,7 @@ const ProductList = () => {
               <div> <img
                 src={`http://localhost:8000/${product.productPhoto.filename}`}
                 alt={product.productName}
-                className="card-img-top"/> </div>
+                className="card-img-top" /> </div>
               <div className="card-body">
                 <h5 className="card-title">{product.productName}</h5>
                 <p className="card-text">{product.productDescription}</p>
@@ -65,7 +62,7 @@ const ProductList = () => {
                   className="btn btn-primary"
                   onClick={() => handleAddToCart(product.productId)}>Add to Cart</button>
 
-<button className="btn btn-primary" onClick={() => handledeleltbuton(product.productId)}>Delete</button>
+                <button className="btn btn-primary" onClick={() => handledeleltbuton(product.productId)}>Delete</button>
 
               </div>
             </div>

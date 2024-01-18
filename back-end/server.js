@@ -41,7 +41,7 @@ app.use("/", express.static("data/images"));
 
 //delted product
 
-app.delete("/deletproduct/", Deleteproduct);
+app.delete("/deletproduct/:productId", Deleteproduct);
 
 //change paswd
 app.put("/changePasword", Chngepswd);

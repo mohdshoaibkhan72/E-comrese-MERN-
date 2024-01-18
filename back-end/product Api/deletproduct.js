@@ -10,27 +10,26 @@ const ProductModel = mongoose.model("Product", ProductSchema);
 
 const Deleteproduct = async (req, res) => {
   try {
-    const { productId } = req.body;
+    const { productId } = req.params;
+
     if (!productId) {
-      return res.status(400).json({ message: "product  id is requires" });
+      return res.status(400).json({ message: "Product ID is required" });
     }
-    const products = await ProductModel.findOneAndDelete({
-      productId: `${productId}`,
-    });
 
-    if (products.ok) {
-      console.log("deletes succesfully ");
-      res.status(200).json({ message: "Dlelted successfuly " });
+    const deletedProduct = await ProductModel.findOneAndDelete({ productId });
+
+    if (deletedProduct) {
+      console.log("Product deleted successfully");
+      res.status(200).json({ message: "Deleted successfully", deletedProduct });
     } else {
-      console.log("Product  not deleted  or founds");
+      console.log("Product not found or not deleted");
+      res.status(404).json({ message: "Product not found or not deleted" });
     }
-
-    // Send the products as a response
-    res.status(200).json(products);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 module.exports = Deleteproduct;
