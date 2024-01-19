@@ -76,6 +76,9 @@ function Navbar() {
                   <button className="btn btn-danger" onClick={Logout}>
                     Logout
                   </button>
+                  <Link to="/changepassword">
+          <button  className='btn btn-primary'>changePassword</button>
+        </Link>
                 </>
               ) : (
                 <Link to="/login">
@@ -89,9 +92,7 @@ function Navbar() {
             </Link>
           )}
         </div>
-        <Link to="/changepassword">
-          <button  className='btn btn-primary'>changePassword</button>
-        </Link>
+       
       </div>
     </nav>
   );

@@ -6,12 +6,13 @@ const registerUser = require("./db/Registration");
 const Addproduct = require("./product Api/addproduct");
 const login = require("./db/login");
 const multer = require("multer");
-const upload = multer({ dest: 'data/images/' });
+const upload = multer({ dest: "data/images/" });
 const path = require("path");
 const Getproduct = require("./product Api/getproduct");
 
 const Chngepswd = require("./Pasword/chnagepswd");
 const Deleteproduct = require("./product Api/deletproduct");
+const checkAuthMiddle = require("./middlewares/checkAuthMiddleware");
 
 // Middleware for parsing JSON
 app.use(express.json());
@@ -44,7 +45,7 @@ app.use("/", express.static("data/images"));
 app.delete("/deletproduct/:productId", Deleteproduct);
 
 //change paswd
-app.post("/changePasword", Chngepswd);
+app.put("/changePassword", checkAuthMiddle, Chngepswd);
 
 // Start the server on port 8000
 app.listen(8000, () => {

@@ -7,18 +7,18 @@ import { AppContext } from "../Context";
 
 const LoginPage = () => {
   const { setAccessToken, setUser } = useContext(AppContext);
-  
+
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
   const accessTokens = localStorage.getItem('accessToken');
-  
-  React.useEffect(()=>{
-     if(accessTokens || user){
+
+  React.useEffect(() => {
+    if (accessTokens || user) {
       navigate('/');
     }
-  
+
   })
-   
+
 
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +34,7 @@ const LoginPage = () => {
       const response = await axios.post("http://localhost:8000/login", loginData);
       const { accessToken, user } = response.data;
 
-  
+
 
       if (accessToken) {
         // Store tokens in localStorage

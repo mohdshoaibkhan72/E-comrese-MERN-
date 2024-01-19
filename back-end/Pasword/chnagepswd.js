@@ -2,17 +2,20 @@ const usermodel = require("../db/UserModel");
 
 const Chngepswd = async (req, res) => {
   try {
-    const { email, newPassword } = req.body;
+    const user = req.user;
+    const accessTokens = localStorage.getItem("accessToken");
+    if (!accessTokens) {
+      return res.status(401).json({ error: "unothersires" });
+    }
 
-    // Using findOneAndUpdate to find a user by email and update their password
+    const { newPassword } = req.body;
+
     const response = await usermodel.findOneAndUpdate(
-      { email: email },
+      { email: user.email },
       { $set: { password: newPassword } },
       { new: true }
     );
     if (!response) {
-      // If the user with the provided email is not found
-      console.log("Please provide the correct email and password.");
       return res.status(404).json({ message: "User not found" });
     }
 

@@ -5,10 +5,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-
 app.use(cors());
-
-
 const login =
   ("/login",
   async (req, res) => {
