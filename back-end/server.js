@@ -44,7 +44,7 @@ app.use("/", express.static("data/images"));
 app.delete("/deletproduct/:productId", Deleteproduct);
 
 //change paswd
-app.put("/changePasword", Chngepswd);
+app.post("/changePasword", Chngepswd);
 
 // Start the server on port 8000
 app.listen(8000, () => {

@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 app.use(cors());
 
- const registerUser = (async (req, res) => {
+const registerUser = async (req, res) => {
   try {
     const { fullName, username, password, email, mobileNumber } = req.body;
 
@@ -30,14 +30,14 @@ app.use(cors());
     }
     //hasing pawsod
 
-    const salt = bcrypt.genSaltSync(1);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // const salt = bcrypt.genSaltSync(1);
+    // const hashedPassword = await bcrypt.hash(password, salt);
 
     //storing the new data
     const user = new User({
       fullName,
       username,
-      password: hashedPassword,
+      password,
       email,
       mobileNumber,
     });
@@ -49,18 +49,17 @@ app.use(cors());
       { name: user.username, userId: user._id },
       process.env.ACCESS_TOKEN_SECRET
     );
-    console.log(accessToken)
+    console.log(accessToken);
     res.status(201).json({
       success: true,
       message: "Registration is successful",
       accessToken,
       user: { name: user.username },
     });
-    
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-});
+};
 
 module.exports = registerUser;
