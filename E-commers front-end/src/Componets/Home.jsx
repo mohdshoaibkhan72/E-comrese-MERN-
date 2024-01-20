@@ -1,17 +1,17 @@
 // Homerots.jsx
 
 import React from 'react';
-import ProductList from './Addproduct/GetProduct';
+import ProductList from './Products/GetProduct';
 
 
 
 function Home() {
-  
+
 
   return <>
-  <div className='body'> 
-  <ProductList></ProductList>
-  </div>
+    <div className='body'>
+      <ProductList></ProductList>
+    </div>
   </>
 
 }

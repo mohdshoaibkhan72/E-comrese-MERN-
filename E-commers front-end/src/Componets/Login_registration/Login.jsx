@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link, useFetcher, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AppContext } from "../Context";
+import { AppContext } from "../../Context";
 
 const LoginPage = () => {
   const { setAccessToken, setUser } = useContext(AppContext);

@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const ProductSchema = require("./productmodel");
+const ProductSchema = require("../Models/productmodel");
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -30,6 +30,5 @@ const Deleteproduct = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 module.exports = Deleteproduct;

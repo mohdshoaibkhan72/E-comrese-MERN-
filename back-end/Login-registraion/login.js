@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require("./UserModel");
+const User = require("../Models/UserModel");
 const app = express();
 const cors = require("cors");
 const bcrypt = require("bcrypt");
@@ -31,7 +31,7 @@ const login =
 
       // Password is correct, create JWT token
       const accessToken = jwt.sign(
-        { name: user.username, userId: user._id },
+        { name: user.username, userId: user._id, email: user.email },
         process.env.ACCESS_TOKEN_SECRET
       );
       // Respond with the token and user details

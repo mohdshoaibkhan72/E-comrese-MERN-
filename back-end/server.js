@@ -1,12 +1,12 @@
 const express = require("express");
-const connectDB = require("./db/DbConnection");
+const connectDB = require("./connection/DbConnection");
 const app = express();
 const cors = require("cors");
-const registerUser = require("./db/Registration");
+const registerUser = require("./Login-registraion/Registration");
 const Addproduct = require("./product Api/addproduct");
-const login = require("./db/login");
+const login = require("./Login-registraion/login");
 const multer = require("multer");
-const upload = multer({ dest: "data/images/" });
+const upload = multer({ dest: "images/" });
 const path = require("path");
 const Getproduct = require("./product Api/getproduct");
 
@@ -38,7 +38,7 @@ app.get("/getproducts", Getproduct);
 app.get("/getemail", Chngepswd);
 
 // Serve static files from "data/productimages"
-app.use("/", express.static("data/images"));
+app.use("/", express.static("images/"));
 
 //delted product
 

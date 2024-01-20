@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const User = require("./UserModel");
+const User = require("../Models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -30,14 +30,14 @@ const registerUser = async (req, res) => {
     }
     //hasing pawsod
 
-    // const salt = bcrypt.genSaltSync(1);
-    // const hashedPassword = await bcrypt.hash(password, salt);
+    const salt = bcrypt.genSaltSync(1);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     //storing the new data
     const user = new User({
       fullName,
       username,
-      password,
+      password: hashedPassword,
       email,
       mobileNumber,
     });

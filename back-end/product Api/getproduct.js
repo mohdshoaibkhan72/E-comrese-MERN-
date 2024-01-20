@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const ProductSchema = require("./productmodel");
+const ProductSchema = require("../Models/productmodel");
 
 // Middleware to parse JSON
 app.use(express.json());
