@@ -54,12 +54,13 @@ function Navbar() {
             </li>
 
             <li className="nav-item">
-              {accessToken && user ? ( <Link className="nav-link" to="/">
+              {accessToken && user ? (<Link className="nav-link" to="/shopingcard
+              ">
                 <FaShoppingCart className="me-2" />
                 Cart
-              </Link>):null
+              </Link>) : null
               }
-             
+
             </li>
           </ul>
         </div>
@@ -77,8 +78,8 @@ function Navbar() {
                     Logout
                   </button>
                   <Link to="/changepassword">
-          <button  className='btn btn-primary'>changePassword</button>
-        </Link>
+                    <button className='btn btn-primary'>changePassword</button>
+                  </Link>
                 </>
               ) : (
                 <Link to="/login">
@@ -92,7 +93,7 @@ function Navbar() {
             </Link>
           )}
         </div>
-       
+
       </div>
     </nav>
   );

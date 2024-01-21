@@ -8,6 +8,7 @@ import AdProductForm from './Componets/Products/AddProduct';
 import { AppContext } from './Context';
 import Home from './Componets/Home';
 import ChangePasswordForm from './Componets/Password/changepaswd';
+import ShopingCard from './Componets/ShopingCard/ShopingCard';
 const App = () => {
   const [accessToken, setAccessToken] = useState(null)
   const [user, setUser] = useState(null)
@@ -42,6 +43,9 @@ const App = () => {
             <Route path='/addproduct' element={<AdProductForm />} />
             <Route path='changePassword'
               element={<ChangePasswordForm />}> </Route>
+            <Route path='shopingcard'
+              element={<ShopingCard />}> </Route>
+
           </Routes>
         </BrowserRouter>
       </div>
