@@ -1,26 +1,32 @@
 * {
-  margin: 0px;
+  margin: 0;
+}
+
+.body,
+.navbar {
+  background: linear-gradient(45deg, #fc466b, #3f5efb);
 }
 
 .body {
-  background: linear-gradient(45deg, #fc466b, #3f5efb);
   min-height: 90vh;
   font-family: "Montserrat", sans-serif;
 }
+
 .navbar {
-  background: linear-gradient(45deg, #fc466b, #3f5efb);
   height: 10vh;
 }
+
 .ecomrse {
   color: white;
 }
+
 .container {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
-  transform: translate(-50%, -50%);
-  top: 49%;
-  left: 50%;
 }
 
 form {
@@ -30,14 +36,13 @@ form {
   height: auto;
   width: max-content;
   border-radius: 20px;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
-  justify-content: center;
   transition: all 0.2s ease-in-out;
+  justify-content: center;
 }
 
 form p {
@@ -45,8 +50,7 @@ form p {
   color: #fff;
   opacity: 0.7;
   font-size: 1.4rem;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -71,8 +75,6 @@ form input {
   padding: 1em;
   margin-bottom: 2em;
   border: none;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 5000px;
   backdrop-filter: blur(5px);
   box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
@@ -83,11 +85,7 @@ form input {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-form input:hover {
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
-}
-
+form input:hover,
 form input[type="email"]:focus,
 form input[type="password"]:focus {
   background: rgba(255, 255, 255, 0.1);
@@ -108,54 +106,56 @@ form input[type="button"]:active {
   background: rgba(255, 255, 255, 0.2);
 }
 
-.drop:hover {
-  margin: 10px;
-}
-
-::placeholder {
-  font-family: Montserrat, sans-serif;
-  font-weight: 400;
-  color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-}
-
 .drop {
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   border-radius: 10px;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 10px 10px 60px -8px rgba(0, 0, 0, 0.2);
   position: absolute;
   transition: all 0.2s ease;
 }
 
+.drop:hover {
+  margin: 10px;
+}
+
+/* Add common styles for different drop classes */
+.drop-1,
+.drop-2,
+.drop-3,
+.drop-4,
+.drop-5 {
+  z-index: -1;
+}
+
+.drop-1,
+.drop-2,
+.drop-3,
+.drop-4 {
+  width: 80px;
+}
+
 .drop-1 {
   height: 80px;
-  width: 80px;
   top: 200px;
   left: 400px;
-  z-index: -1;
 }
 
 .drop-2 {
   height: 80px;
-  width: 80px;
   bottom: -30px;
   right: 410px;
 }
 
 .drop-3 {
   height: 100px;
-  width: 100px;
   bottom: 120px;
   right: 390px;
-  z-index: -1;
 }
 
 .drop-4 {
   height: 120px;
-  width: 120px;
   top: 40px;
   right: 390px;
 }
@@ -165,14 +165,9 @@ form input[type="button"]:active {
   width: 7.7vh;
   top: 8vh;
   left: 55vh;
-  z-index: -1;
 }
 
-.btn1 {
-  height: 37px;
-}
-
-/* this is for home routes */
+/* Styles for home routes */
 #navbarNav {
   color: #fff;
   font-weight: 600;
@@ -187,12 +182,12 @@ form input[type="button"]:active {
 .card {
   background-color: white;
   margin: 10px;
-  border: 1px solid #ddd; /* Add a border for better visibility */
-  transition: transform 0.3s; /* Add a smooth transition effect */
+  border: 1px solid #ddd;
+  transition: transform 0.3s;
 }
 
 .card:hover {
-  transform: scale(1.05); /* Enlarge the card on hover */
+  transform: scale(1.05);
 }
 
 .card-body {
@@ -212,15 +207,22 @@ img {
   width: max-content;
   height: 100px;
 }
+
 .cards {
   height: auto;
   width: 100vw;
   display: flex;
   align-items: center;
 }
+
 .cardbox {
   width: 220px;
 }
+
 .cardbox img {
   height: 25vh;
+}
+
+.btn {
+  row-gap: 10px;
 }

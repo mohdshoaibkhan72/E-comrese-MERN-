@@ -1,19 +1,20 @@
 // Import necessary libraries and components
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaHome, FaInfo, FaShoppingCart } from 'react-icons/fa';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaHome, FaInfo, FaShoppingCart } from "react-icons/fa";
 
 function Navbar() {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem("accessToken");
 
   function Logout() {
     localStorage.clear();
-    navigate('/');
+    navigate("/");
     window.location.reload();
   }
-
+  var x = localStorage.getItem("itemaddinCard");
+  console.log(x);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -31,7 +32,10 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <div
+          className="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
           <ul className="navbar-nav">
             <li className="nav-item list">
               <Link className="nav-link" to="/">
@@ -54,22 +58,32 @@ function Navbar() {
             </li>
 
             <li className="nav-item">
-              {accessToken && user ? (<Link className="nav-link" to="/shopingcard
-              ">
-                <FaShoppingCart className="me-2" />
-                Cart
-              </Link>) : null
-              }
-
+              {accessToken && user ? (
+                <Link
+                  className="nav-link"
+                  to="/shopingcard
+              "
+                >
+                  <FaShoppingCart className="me-2 " />
+                  Cart <sup className="fs-5">{x}</sup>
+                </Link>
+              ) : null}
             </li>
           </ul>
         </div>
-        <div className={`ms-auto ${accessToken && user ? 'd-flex align-items-center' : 'mx-auto'}`}>
+        <div
+          className={`ms-auto ${
+            accessToken && user ? "d-flex align-items-center" : "mx-auto"
+          }`}
+        >
           {accessToken ? (
             <>
               {user ? (
                 <>
-                  <div className="card me-4" style={{ width: 'auto', height: 'auto' }}>
+                  <div
+                    className="card me-4"
+                    style={{ width: "auto", height: "auto" }}
+                  >
                     <div className="card-body">
                       <h5 className="card-title">Welcome, {user.name}!</h5>
                     </div>
@@ -78,7 +92,7 @@ function Navbar() {
                     Logout
                   </button>
                   <Link to="/changepassword">
-                    <button className='btn btn-primary'>changePassword</button>
+                    <button className="btn btn-primary">changePassword</button>
                   </Link>
                 </>
               ) : (
@@ -93,7 +107,6 @@ function Navbar() {
             </Link>
           )}
         </div>
-
       </div>
     </nav>
   );

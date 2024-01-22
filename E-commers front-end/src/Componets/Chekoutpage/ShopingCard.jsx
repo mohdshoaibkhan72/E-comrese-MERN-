@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Form, Col, Row, Image } from "react-bootstrap";
 
 const CartItemList = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -17,11 +18,18 @@ const CartItemList = () => {
     const fetchCartItems = async () => {
       try {
         const response = await axios.get("http://localhost:8000/getcard");
+
         const itemsWithTotalPrice = response.data.data.map((item) => ({
           ...item,
           totalPrice: item.productPrice * item.quantity,
         }));
+        const totalItems = itemsWithTotalPrice.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
         setCartItems(itemsWithTotalPrice);
+        //items avilabole in cards
+        localStorage.setItem("itemaddinCard", totalItems);
       } catch (error) {
         console.error("Error fetching cart items:", error);
       }
@@ -46,6 +54,8 @@ const CartItemList = () => {
       console.error("Error deleting product:", error);
     }
   };
+
+  /*update quntity */
 
   const handleQuantityChange = (itemId, newQuantity) => {
     setCartItems((prevItems) =>
@@ -138,6 +148,7 @@ const CartItemList = () => {
               </tbody>
             </table>
           </div>
+
           <form className="col-md-4 ">
             <div className=" ">
               <h4 className="text-white ">Calculations</h4>
@@ -260,13 +271,6 @@ const CartItemList = () => {
             Place Order
           </button>
         </form>
-      </div>
-      <div className="drops">
-        <div className="drop drop-1"></div>
-        <div className="drop drop-2"></div>
-        <div className="drop drop-3"></div>
-        <div className="drop drop-4"></div>
-        <div className="drop drop-5"></div>
       </div>
     </>
   );

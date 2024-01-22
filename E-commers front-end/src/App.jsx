@@ -36,12 +36,8 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<RegistrationPage />} />
               <Route path="/addproduct" element={<AdProductForm />} />
-              <Route path="changePassword" element={<ChangePasswordForm />}>
-                {" "}
-              </Route>
-              <Route path="shopingcard" element={<ShopingCard />}>
-                {" "}
-              </Route>
+              <Route path="/changePassword" element={<ChangePasswordForm />} />
+              <Route path="/shopingcard" element={<ShopingCard />} />
             </Routes>
           </BrowserRouter>
         </div>
