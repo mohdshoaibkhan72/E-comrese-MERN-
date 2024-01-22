@@ -5,7 +5,7 @@ const CartItem = require("../models/Cardmodel");
 const Addcard = async (req, res) => {
   try {
     // Destructure values from the request body
-    const { productName, productPrice, quantity, user } = req.body;
+    const { productName, productPrice, quantity, user, productId } = req.body;
 
     // Check if a cart item already exists for the user and product
     const existingCartItem = await CartItem.findOne({ productName });
@@ -21,6 +21,7 @@ const Addcard = async (req, res) => {
     // Create a new cart item
     const newCartItem = new CartItem({
       user,
+      productId,
       productName,
       productPrice,
       quantity: quantity || 1, // Default to 1 if quantity is not provided
