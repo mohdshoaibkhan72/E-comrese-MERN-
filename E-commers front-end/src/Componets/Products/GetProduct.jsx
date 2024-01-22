@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const navigate = useNavigate(); // Use useNavigate from react-router-dom
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,33 +28,41 @@ const ProductList = () => {
   ) => {
     try {
       const user = localStorage.getItem("user");
+
+      // Check if the product with the given ID already exists in the user's cart
+      const responseGetCard = await axios.get("http://localhost:8000/getcard");
+      const userCard = responseGetCard.data.data;
+      console.log("data feching", userCard);
+      if (userCard.some((item) => item.productId === productId)) {
+        toast("Already added in card");
+        return;
+      }
+
       console.log("UserName:", user);
 
       // Send a POST request to add the product to the cart in the database
-      const response = await axios.post("http://localhost:8000/shopingcard", {
-        productId,
-        productPrice,
-        productName,
-        filename,
-        user,
-      });
+      const responseAddToCart = await axios.post(
+        "http://localhost:8000/shopingcard",
+        {
+          productId,
+          productPrice,
+          productName,
+          filename,
+          user,
+        }
+      );
 
-      // Check the response from the server
-      if (response.data.success) {
-        // Product added successfully
-        // Add the product to the cart state
+      if (responseAddToCart.data.success) {
+        // If the product was added successfully
         const updatedCart = [
           ...cart,
           { productId, productPrice, productName, filename },
         ];
         setCart(updatedCart);
-
-        // Optionally, you can navigate to the Addshop page after adding to the cart
-
+        toast("Item added in Cart");
         console.log(updatedCart);
       } else {
-        // Product already added, show an alert
-        alert("Product is already added to the cart");
+        toast("some error occurse ");
       }
     } catch (error) {
       console.error("Error adding product to the cart:", error);
@@ -72,6 +78,7 @@ const ProductList = () => {
 
       if (response.status === 200) {
         console.log(`Product with ID ${productId} deleted successfully.`);
+        window.location.reload();
         // Optionally, you can update the UI optimistically here
       } else {
         console.log(`Failed to delete product with ID ${productId}.`);
@@ -83,6 +90,7 @@ const ProductList = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="cards">
         <div className="card-container">
           {products.map((product) => (
@@ -112,7 +120,7 @@ const ProductList = () => {
                   Add to Cart
                 </button>
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-danger"
                   onClick={() => handleDeleteButton(product.productId)}
                 >
                   Delete

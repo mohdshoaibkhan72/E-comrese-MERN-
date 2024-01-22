@@ -1,17 +1,11 @@
-// routes/cartRoutes.js
 const CartItem = require("../models/Cardmodel");
-
-// Route to store a new cart item
 const Addcard = async (req, res) => {
   try {
-    // Destructure values from the request body
     const { productName, productPrice, quantity, user, productId } = req.body;
-
     // Check if a cart item already exists for the user and product
     const existingCartItem = await CartItem.findOne({ productName });
 
     if (existingCartItem) {
-      // If the cart item already exists, return an error response
       console.log("already exist");
       return res
         .status(400)
