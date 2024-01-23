@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../Context";
 import { ToastContainer, toast } from "react-toastify";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-
+  const { accountType } = useContext(AppContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,10 +87,13 @@ const ProductList = () => {
       console.error("Error deleting product:", error);
     }
   };
+  // const usertype = (localStorage.getItem *= ("actype", user.accountType));
+  // console.warn("typeac", usertype);
 
   return (
     <>
       <ToastContainer />
+
       <div className="cards">
         <div className="card-container">
           {products.map((product) => (
@@ -116,14 +119,33 @@ const ProductList = () => {
                       product.productPhoto.filename
                     )
                   }
+                  style={{
+                    display: accountType === "user" ? "block" : "none",
+                  }}
                 >
                   Add to Cart
                 </button>
+
                 <button
                   className="btn btn-danger"
                   onClick={() => handleDeleteButton(product.productId)}
+                  // Render the button only if the account type is "seller"
+                  style={{
+                    display: accountType === "seller" ? "flex" : "none",
+                  }}
                 >
                   Delete
+                </button>
+                <button
+                  className="btn btn-warning mt-1"
+                  // onClick={() => handleDeleteButton(product.productId)}
+                  // Render the button only if the account type is "seller"
+                  style={{
+                    display: accountType === "seller" ? "flex" : "none",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  Edit
                 </button>
               </div>
             </div>

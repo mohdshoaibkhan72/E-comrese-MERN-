@@ -37,6 +37,11 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     maxlength: 12,
   },
+  accountType: {
+    type: String,
+    enum: ["user", "seller"],
+    default: "user",
+  },
 });
 
 const Users = mongoose.model("User", UserSchema);

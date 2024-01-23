@@ -10,10 +10,18 @@ app.use(cors());
 
 const registerUser = async (req, res) => {
   try {
-    const { fullName, username, password, email, mobileNumber } = req.body;
+    const { fullName, username, password, email, mobileNumber, accountType } =
+      req.body;
 
     //validation
-    if (!fullName || !username || !password || !email || !mobileNumber) {
+    if (
+      !fullName ||
+      !username ||
+      !password ||
+      !email ||
+      !mobileNumber ||
+      !accountType
+    ) {
       return res.status(500).send({
         success: false,
         message: "pleas provide all filed",
@@ -40,6 +48,7 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
       email,
       mobileNumber,
+      accountType,
     });
     await user.save();
     //send the success msg
@@ -55,6 +64,7 @@ const registerUser = async (req, res) => {
       message: "Registration is successful",
       accessToken,
       user: { name: user.username },
+      accountType: { type: user.accountType },
     });
   } catch (error) {
     console.error(error);

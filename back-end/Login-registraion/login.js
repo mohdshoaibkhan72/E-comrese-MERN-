@@ -35,7 +35,11 @@ const login =
         process.env.ACCESS_TOKEN_SECRET
       );
       // Respond with the token and user details
-      res.status(200).json({ accessToken, user: { name: user.username } });
+      // Respond with the token, user details, and account type
+      res.status(200).json({
+        accessToken,
+        user: { name: user.username, accountType: user.accountType },
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Login failed", details: error.message });

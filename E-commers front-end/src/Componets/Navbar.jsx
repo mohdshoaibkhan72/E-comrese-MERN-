@@ -1,20 +1,21 @@
-// Import necessary libraries and components
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHome, FaInfo, FaShoppingCart } from "react-icons/fa";
+import { AppContext } from "../Context";
 
 function Navbar() {
-  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
+  const { accountType } = useContext(AppContext);
+  const user = JSON.parse(localStorage.getItem("user"));
   const accessToken = localStorage.getItem("accessToken");
+  var x = localStorage.getItem("itemaddinCard");
 
   function Logout() {
     localStorage.clear();
     navigate("/");
     window.location.reload();
   }
-  var x = localStorage.getItem("itemaddinCard");
-  console.log(x);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -50,20 +51,15 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              {accessToken && user ? (
+              {accountType === "seller" ? (
                 <Link className="nav-link" to="/addproduct">
                   Add product
                 </Link>
               ) : null}
             </li>
-
             <li className="nav-item">
-              {accessToken && user ? (
-                <Link
-                  className="nav-link"
-                  to="/shopingcard
-              "
-                >
+              {accountType === "user" ? (
+                <Link className="nav-link" to="/shopingcard">
                   <FaShoppingCart className="me-2 " />
                   Cart <sup className="fs-5">{x}</sup>
                 </Link>
@@ -76,6 +72,9 @@ function Navbar() {
             accessToken && user ? "d-flex align-items-center" : "mx-auto"
           }`}
         >
+          {accountType ? (
+            <div className="me-4 text-white">Account Type: {accountType}</div>
+          ) : null}
           {accessToken ? (
             <>
               {user ? (
@@ -85,7 +84,7 @@ function Navbar() {
                     style={{ width: "auto", height: "auto" }}
                   >
                     <div className="card-body">
-                      <h5 className="card-title">Welcome, {user.name}!</h5>
+                      <h5 className="card-title">Welcome, {user}!</h5>
                     </div>
                   </div>
                   <button className="btn btn-danger" onClick={Logout}>
