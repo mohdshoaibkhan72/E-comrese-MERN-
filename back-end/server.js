@@ -14,6 +14,7 @@ const checkAuthMiddle = require("./middlewares/checkAuthMiddleware");
 const Addcard = require("./Card/addcard");
 const GetCartItems = require("./Card/getCard");
 const DelCartItems = require("./Card/deleteCard");
+const UpdateProduct = require("./product Api/updateproduct");
 // Middleware for parsing JSON
 app.use(express.json());
 
@@ -23,26 +24,21 @@ connectDB();
 // Enable CORS
 app.use(cors());
 
-// Route for user registration
+// Route for user registration & login
 app.post("/register", registerUser);
-
-// Route for user login
 app.post("/login", login);
 
-// Route for adding product to the database
+// Route for product to the database
 app.post("/addproduct", upload.single("file"), Addproduct);
-
-// Route for getting products
 app.get("/getproducts", Getproduct);
-app.get("/getemail", Chngepswd);
+app.put("/updateProduct", UpdateProduct);
 
+app.delete("/deletproduct/:productId", Deleteproduct);
 // Serve static files from "data/productimages"
 app.use("/", express.static("images/"));
 
-// Route for deleting product
-app.delete("/deletproduct/:productId", Deleteproduct);
-
-// Route for changing password
+// Route for get email changing password
+app.get("/getemail", Chngepswd);
 app.put("/changePassword", checkAuthMiddle, Chngepswd);
 
 // Route for handling shopping cart items
