@@ -2,9 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AppContext } from "../../Context";
 import { ToastContainer, toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const { accountType } = useContext(AppContext);
   useEffect(() => {
     const fetchData = async () => {
@@ -87,8 +89,18 @@ const ProductList = () => {
       console.error("Error deleting product:", error);
     }
   };
-  // const usertype = (localStorage.getItem *= ("actype", user.accountType));
-  // console.warn("typeac", usertype);
+  const navigate = useNavigate();
+
+  const handleUpdateButton = (productId) => {
+    // Step 2
+    const selectedProduct = products.find(
+      (product) => product.productId === productId
+    );
+    setSelectedProduct(selectedProduct);
+    navigate(`/updateProduct/${productId}`, {
+      state: { product: selectedProduct },
+    });
+  };
 
   return (
     <>
@@ -136,17 +148,19 @@ const ProductList = () => {
                 >
                   Delete
                 </button>
-                <button
-                  className="btn btn-warning mt-1"
-                  // onClick={() => handleDeleteButton(product.productId)}
-                  // Render the button only if the account type is "seller"
-                  style={{
-                    display: accountType === "seller" ? "flex" : "none",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  Edit
-                </button>
+
+                <Link to="/updateProduct">
+                  <button
+                    className="btn btn-warning mt-1"
+                    onClick={() => handleUpdateButton(product.productId)}
+                    style={{
+                      display: accountType === "seller" ? "flex" : "none",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    Edit
+                  </button>{" "}
+                </Link>
               </div>
             </div>
           ))}

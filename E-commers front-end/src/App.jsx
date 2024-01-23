@@ -9,7 +9,7 @@ import ChangePasswordForm from "./Componets/Password/changepaswd";
 import ShopingCard from "./Componets/Chekoutpage/ShopingCard";
 import Login from "./Componets/Login_registration/Login";
 import RegistrationPage from "./Componets/Login_registration/Register";
-
+import UpdateProduct from "./Componets/Products/UpdateProduct";
 const App = () => {
   // State variables
   const [accessToken, setAccessToken] = useState(null);
@@ -57,6 +57,7 @@ const App = () => {
               <Route path="/changePassword" element={<ChangePasswordForm />} />
 
               <Route path="/shopingcard" element={<ShopingCard />} />
+              <Route path="/updateProduct/" element={<UpdateProduct />} />
             </Routes>
           </BrowserRouter>
         </div>

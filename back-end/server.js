@@ -31,7 +31,7 @@ app.post("/login", login);
 // Route for product to the database
 app.post("/addproduct", upload.single("file"), Addproduct);
 app.get("/getproducts", Getproduct);
-app.put("/updateProduct", UpdateProduct);
+app.put("/updateProduct/:productId", UpdateProduct);
 
 app.delete("/deletproduct/:productId", Deleteproduct);
 // Serve static files from "data/productimages"
