@@ -10,8 +10,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [value, setValue] = useState({
     productId: "",
     productName: "",
@@ -25,12 +23,10 @@ const ProductList = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:8000/getproducts");
-        console.log(response.data);
+        //console.log(response.data);
         setProducts(response.data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
-        setLoading(false);
       }
     };
 
@@ -44,16 +40,13 @@ const ProductList = () => {
     filename
   ) => {
     try {
-      setLoading(true);
-
       const user = localStorage.getItem("user");
 
       const responseGetCard = await axios.get("http://localhost:8000/getcard");
       const userCard = responseGetCard.data.data;
 
       if (userCard.some((item) => item.productId === productId)) {
-        toast("Already added in card");
-        setLoading(false);
+        toast("Already added in cart");
         return;
       }
 
@@ -81,15 +74,11 @@ const ProductList = () => {
       }
     } catch (error) {
       console.error("Error adding product to the cart:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleDeleteButton = async (productId) => {
     try {
-      setLoading(true);
-
       const response = await axios.delete(
         `http://localhost:8000/deletproduct/${productId}`
       );
@@ -102,100 +91,81 @@ const ProductList = () => {
       }
     } catch (error) {
       console.error("Error deleting product:", error);
-    } finally {
-      setLoading(false);
     }
   };
-
   const handleUpdateButton = (productId) => {
     const selectedProduct = products.find(
       (product) => product.productId === productId
     );
-
-    console.log("Selected Product:", selectedProduct);
+    // console.log("Selected Product:", selectedProduct);
 
     try {
-      setLoading(true);
-
       navigate(`/updateProduct/${productId}`, {
         state: { product: selectedProduct },
       });
     } catch (error) {
       console.error("Error updating product:", error);
-    } finally {
-      setLoading(false);
     }
   };
-
   return (
     <>
       <ToastContainer />
-
-      {loading ? (
-        <div className="d-flex justify-content-center mt-5">
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
-        </div>
-      ) : (
-        <div className="cards">
-          <div className="card-container">
-            {products.map((product) => (
-              <div key={product.productId} className="card cardbox">
-                <div>
-                  <img
-                    src={`http://localhost:8000/${product.productPhoto.filename}`}
-                    alt={product.productName}
-                    className="card-img-top"
-                  />
-                </div>
-                <div className="card-body">
-                  <h5 className="card-title">{product.productName}</h5>
-                  <p className="card-text">{product.productDescription}</p>
-                  <p className="card-text">Price: ${product.productPrice}</p>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() =>
-                      handleAddToCart(
-                        product._id,
-                        product.productPrice,
-                        product.productName,
-                        product.productPhoto.filename
-                      )
-                    }
-                    style={{
-                      display: accountType === "user" ? "block" : "none",
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDeleteButton(product.productId)}
-                    style={{
-                      display: accountType === "seller" ? "flex" : "none",
-                    }}
-                  >
-                    Delete
-                  </button>
-
-                  <Button
-                    className="btn btn-warning mt-1"
-                    onClick={() => handleUpdateButton(product.productId)}
-                    style={{
-                      display: accountType === "seller" ? "flex" : "none",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    Edit
-                  </Button>
-                </div>
+      <div className="cards">
+        <div className="card-container">
+          {products.map((product) => (
+            <div key={product.productId} className="card cardbox">
+              <div>
+                <img
+                  src={`http://localhost:8000/${product.productPhoto.filename}`}
+                  alt={product.productName}
+                  className="card-img-top"
+                />
               </div>
-            ))}
-          </div>
+              <div className="card-body">
+                <h5 className="card-title">{product.productName}</h5>
+                <p className="card-text">{product.productDescription}</p>
+                <p className="card-text">Price: ${product.productPrice}</p>
+                <button
+                  className="btn btn-primary"
+                  onClick={() =>
+                    handleAddToCart(
+                      product._id,
+                      product.productPrice,
+                      product.productName,
+                      product.productPhoto.filename
+                    )
+                  }
+                  style={{
+                    display: accountType === "user" ? "block" : "none",
+                  }}
+                >
+                  Add to Cart
+                </button>
+
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDeleteButton(product.productId)}
+                  style={{
+                    display: accountType === "seller" ? "flex" : "none",
+                  }}
+                >
+                  Delete
+                </button>
+                <Button
+                  className="btn btn-warning mt-1"
+                  onClick={() => handleUpdateButton(product.productId)}
+                  style={{
+                    display: accountType === "seller" ? "flex" : "none",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  Edit
+                </Button>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </>
   );
 };

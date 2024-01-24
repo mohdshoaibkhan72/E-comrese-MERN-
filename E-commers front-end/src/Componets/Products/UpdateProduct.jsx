@@ -76,6 +76,7 @@ const UpdateProductForm = () => {
                 value={formData.productId}
                 onChange={handleChange}
                 required
+                readOnly
               />
             </div>
             <div className="mb-3">
