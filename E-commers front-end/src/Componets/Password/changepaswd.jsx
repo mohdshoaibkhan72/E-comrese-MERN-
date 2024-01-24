@@ -18,31 +18,31 @@ const ChangePasswordForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     setLoading(true);
 
     try {
       const response = await axios.put(
         "http://localhost:8000/changePassword",
         {
-          email: email,
-          newPassword: newPassword,
+          email,
+          newPassword,
         },
         {
           headers: {
-            Authorization: `${accessToken}`,
+            Authorization: accessToken,
           },
         }
       );
 
       if (response.status === 200) {
-        toast("Password is updated");
+        toast.success("Password is updated");
       } else {
-        toast("Failed to update password. Please try again.");
+        toast.error("Failed to update password. Please try again.");
       }
     } catch (error) {
       console.error("Error changing password:", error);
-      toast("Error changing password. Please try again.");
+      toast.error("Error changing password. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -61,6 +61,7 @@ const ChangePasswordForm = () => {
               id="email"
               name="email"
               placeholder="Email"
+              value={email}
               onChange={handleEmailChange}
               required
             />
@@ -70,20 +71,23 @@ const ChangePasswordForm = () => {
               id="newPassword"
               name="newPassword"
               placeholder="New password"
+              value={newPassword}
               onChange={handlePasswordChange}
               required
             />
-            <button type="submit" className="btn btn-primary btn1" disabled={loading}>
+            <button
+              type="submit"
+              className="btn btn-primary btn1"
+              disabled={loading}
+            >
               {loading ? "Submitting..." : "Submit"}
             </button>
           </form>
 
           <div className="drops">
-            <div className="drop drop-1"></div>
-            <div className="drop drop-2"></div>
-            <div className="drop drop-3"></div>
-            <div className="drop drop-4"></div>
-            <div className="drop drop-5"></div>
+            {[1, 2, 3, 4, 5].map((drop) => (
+              <div key={drop} className={`drop drop-${drop}`}></div>
+            ))}
           </div>
         </div>
       </div>
