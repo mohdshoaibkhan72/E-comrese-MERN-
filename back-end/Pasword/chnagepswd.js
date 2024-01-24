@@ -4,11 +4,6 @@ const usermodel = require("../Models/UserModel");
 const Chngepswd = async (req, res) => {
   try {
     const user = req.user;
-    const accessToken = req.headers.Authorization;
-
-    if (!accessToken) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
 
     const { newPassword } = req.body;
 
