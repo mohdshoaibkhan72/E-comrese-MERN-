@@ -2,11 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AppContext } from "../../Context";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [value, setValue] = useState({
+    productId: "",
+    productName: "",
+    productPrice: "",
+    productDescription: "",
+  });
   const { accountType } = useContext(AppContext);
   useEffect(() => {
     const fetchData = async () => {
@@ -92,11 +99,13 @@ const ProductList = () => {
   const navigate = useNavigate();
 
   const handleUpdateButton = (productId) => {
-    // Step 2
     const selectedProduct = products.find(
       (product) => product.productId === productId
     );
-    setSelectedProduct(selectedProduct);
+
+    console.log("Selected Product:", selectedProduct);
+
+    // Navigate to the updateProduct route and pass the selectedProduct as state
     navigate(`/updateProduct/${productId}`, {
       state: { product: selectedProduct },
     });
@@ -149,18 +158,19 @@ const ProductList = () => {
                   Delete
                 </button>
 
-                <Link to="/updateProduct">
-                  <button
-                    className="btn btn-warning mt-1"
-                    onClick={() => handleUpdateButton(product.productId)}
-                    style={{
-                      display: accountType === "seller" ? "flex" : "none",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    Edit
-                  </button>{" "}
-                </Link>
+                <Button
+                  className="btn btn-warning mt-1"
+                  onClick={() => {
+                    handleUpdateButton(product.productId);
+                    navigate(`/updateProduct/${product.productId}`);
+                  }}
+                  style={{
+                    display: accountType === "seller" ? "flex" : "none",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  Edit
+                </Button>
               </div>
             </div>
           ))}

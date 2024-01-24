@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const UpdateProductForm = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     productId: "",
     productName: "",
     productPrice: "",
     productDescription: "",
   });
+
+  useEffect(() => {
+    // Check if product data is available in location state
+    if (location.state && location.state.product) {
+      const productData = location.state.product;
+      setFormData({
+        productId: productData.productId || "",
+        productName: productData.productName || "",
+        productPrice: productData.productPrice || "",
+        productDescription: productData.productDescription || "",
+      });
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +40,7 @@ const UpdateProductForm = () => {
         `http://localhost:8000/updateProduct/${formData.productId}`,
         formData
       );
+
       if (response.data.success) {
         toast("Product updated successfully");
       } else {
@@ -34,6 +50,8 @@ const UpdateProductForm = () => {
       console.error(error);
       toast.error("Failed to update product");
     }
+
+    // Reset form data after submission
     setFormData({
       productId: "",
       productName: "",

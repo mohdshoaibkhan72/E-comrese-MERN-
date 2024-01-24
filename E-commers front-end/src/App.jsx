@@ -57,7 +57,10 @@ const App = () => {
               <Route path="/changePassword" element={<ChangePasswordForm />} />
 
               <Route path="/shopingcard" element={<ShopingCard />} />
-              <Route path="/updateProduct/" element={<UpdateProduct />} />
+              <Route
+                path="/updateProduct/:productId"
+                element={<UpdateProduct />}
+              />
             </Routes>
           </BrowserRouter>
         </div>
