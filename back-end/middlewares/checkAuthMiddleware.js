@@ -6,13 +6,10 @@ function checkAuthMiddle(req, res, next) {
 
   console.log("accessToken", accessToken);
 
-  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, result) => {
-    if (err) {
-      res.status(401).json("Invalid AccessToken");
-      console.log("error", err);
-      return;
+  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (error, result) => {
+    if (error) {
+      console.log("Unouhtrise user ,and error is : ", error);
     }
-
     // console.log(result);
     // res.status(200).json("success");
     req.user = result;

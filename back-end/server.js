@@ -31,20 +31,20 @@ app.post("/login", login);
 // Route for product to the database
 app.post("/addproduct", upload.single("file"), Addproduct);
 app.get("/getproducts", Getproduct);
-app.put("/updateProduct/:productId", UpdateProduct);
+app.put("/updateProduct/:productId", checkAuthMiddle, UpdateProduct);
 
-app.delete("/deletproduct/:productId", Deleteproduct);
+app.delete("/deletproduct/:productId", checkAuthMiddle, Deleteproduct);
 // Serve static files from "data/productimages"
 app.use("/", express.static("images/"));
 
 // Route for get email changing password
-app.get("/getemail", Chngepswd);
+app.get("/getemail", checkAuthMiddle, Chngepswd);
 app.put("/changePassword", checkAuthMiddle, Chngepswd);
 
 // Route for handling shopping cart items
-app.post("/shopingcard", Addcard);
-app.get("/getcard", GetCartItems);
-app.delete("/deleteCard", DelCartItems);
+app.post("/shopingcard", checkAuthMiddle, Addcard);
+app.get("/getcard", checkAuthMiddle, GetCartItems);
+app.delete("/deleteCard", checkAuthMiddle, DelCartItems);
 
 // Start the server on port 8000
 app.listen(8000, () => {
