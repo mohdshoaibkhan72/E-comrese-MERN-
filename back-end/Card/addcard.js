@@ -1,9 +1,11 @@
 const CartItem = require("../models/Cardmodel");
+
 const Addcard = async (req, res) => {
   try {
     const { productName, productPrice, quantity, user, productId } = req.body;
+
     // Check if a cart item already exists for the user and product
-    const existingCartItem = await CartItem.findOne({ productName });
+    const existingCartItem = await CartItem.findOne({ productName, user });
 
     if (existingCartItem) {
       console.log("already exist");
