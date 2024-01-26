@@ -5,17 +5,13 @@ import { AppContext } from "../Context";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { accountType } = useContext(AppContext);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user, accountType } = useContext(AppContext);
   const accessToken = localStorage.getItem("accessToken");
-  var x = localStorage.getItem("itemaddinCard");
-
   function Logout() {
     localStorage.clear();
     navigate("/");
     window.location.reload();
   }
-
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -61,7 +57,7 @@ function Navbar() {
               {accountType === "user" ? (
                 <Link className="nav-link" to="/shopingcard">
                   <FaShoppingCart className="me-2 " />
-                  Cart <sup className="fs-5">{x}</sup>
+                  Cart
                 </Link>
               ) : null}
             </li>
@@ -69,7 +65,7 @@ function Navbar() {
         </div>
         <div
           className={`ms-auto ${
-            accessToken && user ? "d-flex align-items-center" : "mx-auto"
+            accessToken ? "d-flex align-items-center" : "mx-auto"
           }`}
         >
           {accountType ? (
@@ -84,7 +80,7 @@ function Navbar() {
                     style={{ width: "auto", height: "auto" }}
                   >
                     <div className="card-body">
-                      <h5 className="card-title">Welcome, {user}!</h5>
+                      <h5 className="card-title">Welcome, {user.name}!</h5>
                     </div>
                   </div>
                   <button className="btn btn-danger" onClick={Logout}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Form, Col, Row, Image } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CartItemList = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -28,10 +29,9 @@ const CartItemList = () => {
           0
         );
         setCartItems(itemsWithTotalPrice);
-        //items avilabole in cards
-        localStorage.setItem("itemaddinCard", totalItems);
       } catch (error) {
         console.error("Error fetching cart items:", error);
+        toast.error("Error fetching cart items");
       }
     };
 
@@ -52,10 +52,9 @@ const CartItemList = () => {
       }
     } catch (error) {
       console.error("Error deleting product:", error);
+      toast.error("Error deleting product");
     }
   };
-
-  /*update quntity */
 
   const handleQuantityChange = (itemId, newQuantity) => {
     setCartItems((prevItems) =>
@@ -78,6 +77,10 @@ const CartItemList = () => {
     0
   );
 
+  const gstPercentage = 10;
+  const gstAmount = (subTotal * gstPercentage) / 100;
+  const totalAmount = subTotal + gstAmount;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -88,7 +91,7 @@ const CartItemList = () => {
       <div className="container-fluid pt-5 body">
         <div className="row">
           <div className="col-md-8">
-            <h2>Cart Items</h2>
+            <h2 className="text-white">Card items</h2>
             <table className="table">
               <thead>
                 <tr>
@@ -149,129 +152,66 @@ const CartItemList = () => {
             </table>
           </div>
 
-          <form className="col-md-4 ">
-            <div className=" ">
-              <h4 className="text-white ">Calculations</h4>
-              <p className="text-white ">Subtotal: ${subTotal}</p>
-              <div className="mb-3">
-                <select className="form-select" id="paymentMethod" required>
-                  <option value="">Select payments method </option>
-                  <option value="creditCard">Credit Card</option>
-                  <option value="paypal">PayPal</option>
-                </select>
-              </div>
-              <div>
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="creditCardNumber"
-                    placeholder="Card Number"
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="expirationDate"
-                    placeholder="Expirar date"
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="cvv"
-                    placeholder="CVV"
-                    required
-                  />
-                </div>
-              </div>
-              <button type="button" className="btn btn-info">
-                Pay Amount
-              </button>
+          <div className="col-md-4">
+            <div className="">
+              <h4 className="text-white">Calculations</h4>
+              <p className="text-white">Subtotal: ${subTotal}</p>
+              <p className="text-white">
+                GST ({gstPercentage}%): ${gstAmount}
+              </p>
+              <p className="text-white">Total: ${totalAmount}</p>
             </div>
-          </form>
-        </div>
 
-        <form className=" mt-3 w-50 h-auto">
-          <h2>Checkout Form</h2>
-          <div className="mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="firstName"
-              placeholder="First Name"
-              onChange={handleChange}
-              required
-            />
+            <form className="mt-3">
+              <p>Address form</p>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="address"
+                  placeholder="Address"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="tel"
+                  className="form-control"
+                  name="phone"
+                  placeholder="Phone Number"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="city"
+                  placeholder="City"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="zipCode"
+                  placeholder="Zip Code"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Place Order
+              </button>
+            </form>
           </div>
-          <div className="mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="lastName"
-              placeholder="Last Name"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              placeholder="Email"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              type="tel"
-              className="form-control"
-              name="phone"
-              placeholder="Phone Number"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <textarea
-              className="form-control"
-              placeholder="Address"
-              name="address"
-              onChange={handleChange}
-              required
-            ></textarea>
-          </div>
-          <div className="mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="city"
-              placeholder="City"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="zipCode"
-              placeholder="Zip Code"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Place Order
-          </button>
-        </form>
+        </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

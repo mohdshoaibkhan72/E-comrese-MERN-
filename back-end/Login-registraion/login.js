@@ -31,14 +31,23 @@ const login =
 
       // Password is correct, create JWT token
       const accessToken = jwt.sign(
-        { name: user.username, userId: user._id, email: user.email },
+        {
+          name: user.username,
+          userId: user._id,
+          email: user.email,
+          accountType: user.accountType,
+        },
         process.env.ACCESS_TOKEN_SECRET
       );
       // Respond with the token and user details
       // Respond with the token, user details, and account type
       res.status(200).json({
         accessToken,
-        user: { name: user.username, accountType: user.accountType },
+        user: {
+          name: user.username,
+          email: user.email,
+          accountType: user.accountType,
+        },
       });
     } catch (error) {
       console.error(error);

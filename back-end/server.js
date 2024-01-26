@@ -15,6 +15,7 @@ const Addcard = require("./Card/addcard");
 const GetCartItems = require("./Card/getCard");
 const DelCartItems = require("./Card/deleteCard");
 const UpdateProduct = require("./product Api/updateproduct");
+const AddOrder = require("./Orders/addOrders");
 // Middleware for parsing JSON
 app.use(express.json());
 
@@ -32,20 +33,22 @@ app.post("/login", login);
 app.post("/addproduct", upload.single("file"), Addproduct);
 app.get("/getproducts", Getproduct);
 app.put("/updateProduct/:productId", checkAuthMiddle, UpdateProduct);
-
 app.delete("/deletproduct/:productId", checkAuthMiddle, Deleteproduct);
+
 // Serve static files from "data/productimages"
 app.use("/", express.static("images/"));
 
 // Route for get email changing password
-app.get("/getemail", checkAuthMiddle, Chngepswd);
+app.get("/getemail", Chngepswd);
 app.put("/changePassword", checkAuthMiddle, Chngepswd);
 
 // Route for handling shopping cart items
 app.post("/shopingcard", checkAuthMiddle, Addcard);
-app.get("/getcard", checkAuthMiddle, GetCartItems);
+app.get("/getcard", GetCartItems);
 app.delete("/deleteCard", checkAuthMiddle, DelCartItems);
 
+//Order
+app.post("/addorder", AddOrder);
 // Start the server on port 8000
 app.listen(8000, () => {
   console.log("Server is running on port 8000");

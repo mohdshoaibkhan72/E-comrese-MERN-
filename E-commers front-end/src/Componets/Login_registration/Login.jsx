@@ -8,15 +8,18 @@ import { AppContext } from "../../Context";
 const LoginPage = () => {
   const { setAccessToken, setUser, setAccountType } = useContext(AppContext);
 
-  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-  const accessTokens = localStorage.getItem("accessToken");
 
-  React.useEffect(() => {
-    if (accessTokens || user) {
+  // Initialize state for user and accountType
+  const [userState, setUserState] = useState(null);
+  const [accountTypeState, setAccountTypeState] = useState(null);
+
+  useEffect(() => {
+    // Check if user and accountType are available in state
+    if (userState || accountTypeState) {
       navigate("/");
     }
-  });
+  }, [userState, accountTypeState, navigate]);
 
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -33,28 +36,43 @@ const LoginPage = () => {
         "http://localhost:8000/login",
         loginData
       );
+
       const { accessToken, user } = response.data;
 
       if (accessToken) {
-        // Store tokens in localStorage
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("user", JSON.stringify(user.name));
-        localStorage.setItem("account", user.accountType);
-        // localStorage.setItem("accountType", user.accountType);
+        // Set user and accountType in component state
+        setUserState(user);
+        setAccountTypeState(user.accountType);
 
-        // Set tokens and account type in context
+        // Set tokens in context
         setAccessToken(accessToken);
-        setUser(user.name);
+        setUser(user);
         setAccountType(user.accountType);
-        console.log("account type", user.accountType);
+
+        // Store user object and access token in localStorage
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("accessToken", accessToken);
+
         // Redirect to the home page after successful login
         navigate("/");
       } else {
         toast.info("Incorrect username and password");
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      if (error.response) {
+        // The request was made, but the server responded with an error
+        toast.error(
+          `Error: ${error.response.status} - ${error.response.data.message}`
+        );
+      } else if (error.request) {
+        // The request was made, but no response was received
+        toast.error("No response received from the server");
+      } else {
+        // Something happened in setting up the request that triggered an error
+        toast.error("An unexpected error occurred");
+      }
     }
+
     setLoginData({ email: "", password: "" });
   };
 
@@ -62,10 +80,9 @@ const LoginPage = () => {
     const { name, value } = e.target;
     setLoginData((prevData) => ({ ...prevData, [name]: value }));
   };
-
   return (
     <>
-      <AppContext.Provider value={{ setAccountType }}>
+      <AppContext.Provider value={{ setAccountType, setUser }}>
         <div className="body">
           <div className="container">
             <form onSubmit={handleLoginSubmit}>
