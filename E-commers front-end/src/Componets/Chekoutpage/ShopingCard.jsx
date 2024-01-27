@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AppContext } from "../../Context";
 
 const CartItemList = () => {
+  const { user } = useContext(AppContext);
   const [cartItems, setCartItems] = useState([]);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -84,6 +86,37 @@ const CartItemList = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleOrderButton = async () => {
+    try {
+      // Prepare the order data to be sent to the server
+      const orderData = {
+        OrderId: 1637,
+        userName: user.name,
+        quantity: 1,
+        TotalPrice: totalAmount,
+        Address: formData.address,
+        MobNumber: formData.phone,
+        paymentId: 23534,
+      };
+
+      // Make a POST request to the server
+      const response = await axios.post(
+        "http://localhost:8000/addorder",
+        orderData
+      );
+
+      if (response.status === 200) {
+        toast.success("Order placed successfully");
+        // Optionally, you can redirect or perform other actions after successful order placement
+      } else {
+        toast.error("Failed to place order");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      toast.error("Error placing order");
+    }
   };
 
   return (
@@ -184,27 +217,12 @@ const CartItemList = () => {
                   required
                 />
               </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="city"
-                  placeholder="City"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="zipCode"
-                  placeholder="Zip Code"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">
+
+              <button
+                type="button"
+                onClick={() => handleOrderButton()}
+                className="btn btn-primary"
+              >
                 Place Order
               </button>
             </form>

@@ -9,7 +9,6 @@ const OrderSchema = new mongoose.Schema({
   userName: {
     type: String,
     required: true,
-    unique: true,
   },
   quantity: {
     type: Number, // Note: 'number' should be 'Number'
