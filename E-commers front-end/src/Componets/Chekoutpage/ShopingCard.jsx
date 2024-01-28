@@ -26,10 +26,6 @@ const CartItemList = () => {
           ...item,
           totalPrice: item.productPrice * item.quantity,
         }));
-        const totalItems = itemsWithTotalPrice.reduce(
-          (total, item) => total + item.quantity,
-          0
-        );
         setCartItems(itemsWithTotalPrice);
       } catch (error) {
         console.error("Error fetching cart items:", error);
@@ -92,13 +88,17 @@ const CartItemList = () => {
     try {
       // Prepare the order data to be sent to the server
       const orderData = {
-        OrderId: 1637,
         userName: user.name,
-        quantity: 1,
         TotalPrice: totalAmount,
         Address: formData.address,
         MobNumber: formData.phone,
         paymentId: 23534,
+        items: cartItems.map((cartItem) => ({
+          productId: cartItem.productId,
+          quantity: cartItem.quantity,
+          productPrice: cartItem.productPrice,
+          // Add other details specific to each item
+        })),
       };
 
       // Make a POST request to the server
@@ -109,7 +109,6 @@ const CartItemList = () => {
 
       if (response.status === 200) {
         toast.success("Order placed successfully");
-        // Optionally, you can redirect or perform other actions after successful order placement
       } else {
         toast.error("Failed to place order");
       }

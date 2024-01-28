@@ -8,37 +8,29 @@ app.use(express.json());
 
 const AddOrder = async (req, res) => {
   try {
-    const {
-      OrderId,
-      userName,
-      quantity,
-      TotalPrice,
-      Address,
-      MobNumber,
-      paymentId, // Corrected variable name to match the schema
-    } = req.body;
+    const { userName, TotalPrice, Address, MobNumber, paymentId, items } =
+      req.body;
 
     if (
-      !OrderId ||
       !userName ||
-      !quantity ||
       !TotalPrice ||
       !Address ||
       !MobNumber ||
-      !paymentId
+      !paymentId ||
+      !items ||
+      items.length === 0
     ) {
       return res.status(403).json({ message: "custom error" });
     }
 
     // Storing the data
     const orderSave = new OrderModel({
-      OrderId,
       userName,
-      quantity,
       TotalPrice,
       Address,
       MobNumber,
       paymentId,
+      items,
     });
 
     // Save the order to the database

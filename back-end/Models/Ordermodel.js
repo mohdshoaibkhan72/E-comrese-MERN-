@@ -1,17 +1,24 @@
 const mongoose = require("mongoose");
 
-const OrderSchema = new mongoose.Schema({
-  OrderId: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-  userName: {
+const ItemSchema = new mongoose.Schema({
+  productId: {
     type: String,
     required: true,
   },
   quantity: {
-    type: Number, // Note: 'number' should be 'Number'
+    type: Number,
+    required: true,
+  },
+  productPrice: {
+    type: Number,
+    required: true,
+  },
+  // Add any other details specific to the item
+});
+
+const OrderSchema = new mongoose.Schema({
+  userName: {
+    type: String,
     required: true,
   },
   TotalPrice: {
@@ -32,6 +39,7 @@ const OrderSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  items: [ItemSchema], // Array of items within the order
 });
 
 module.exports = mongoose.model("Order", OrderSchema);
