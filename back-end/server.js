@@ -16,6 +16,7 @@ const GetCartItems = require("./Card/getCard");
 const DelCartItems = require("./Card/deleteCard");
 const UpdateProduct = require("./product Api/updateproduct");
 const AddOrder = require("./Orders/addOrders");
+const payment = require("./Orders/payment");
 // Middleware for parsing JSON
 app.use(express.json());
 
@@ -49,6 +50,7 @@ app.delete("/deleteCard", checkAuthMiddle, DelCartItems);
 
 //Order
 app.post("/addorder", AddOrder);
+app.post("/payments", payment);
 // Start the server on port 8000
 app.listen(8000, () => {
   console.log("Server is running on port 8000");
