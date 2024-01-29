@@ -10,6 +10,7 @@ import ShopingCard from "./Componets/Chekoutpage/ShopingCard";
 import Login from "./Componets/Login_registration/Login";
 import RegistrationPage from "./Componets/Login_registration/Register";
 import UpdateProduct from "./Componets/Products/UpdateProduct";
+import FakeApi from "./Componets/fakeApi/fakeApi";
 
 const App = () => {
   // State variables
@@ -53,7 +54,7 @@ const App = () => {
             <Route path="/addproduct" element={<AdProductForm />} />
             <Route path="/changePassword" element={<ChangePasswordForm />} />
             <Route path="/shopingcard" element={<ShopingCard />} />
-
+            <Route path="/fakeApi" element={<FakeApi />} />
             <Route
               path="/updateProduct/:productId"
               element={<UpdateProduct />}

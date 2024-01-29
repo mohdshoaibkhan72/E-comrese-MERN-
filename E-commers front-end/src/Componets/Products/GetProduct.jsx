@@ -41,15 +41,12 @@ const ProductList = () => {
   ) => {
     try {
       const user = localStorage.getItem("user");
-
       const responseGetCard = await axios.get("http://localhost:8000/getcard");
       const userCard = responseGetCard.data.data;
-
       if (userCard.some((item) => item.productId === productId)) {
         toast("Already added in cart");
         return;
       }
-
       const responseAddToCart = await axios.post(
         "http://localhost:8000/shopingcard",
         {
@@ -76,7 +73,6 @@ const ProductList = () => {
       console.error("Error adding product to the cart:", error);
     }
   };
-
   const handleDeleteButton = async (productId) => {
     try {
       const response = await axios.delete(
