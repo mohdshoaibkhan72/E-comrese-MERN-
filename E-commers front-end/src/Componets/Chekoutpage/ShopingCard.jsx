@@ -8,13 +8,8 @@ const CartItemList = () => {
   const { user } = useContext(AppContext);
   const [cartItems, setCartItems] = useState([]);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
     phone: "",
     address: "",
-    city: "",
-    zipCode: "",
   });
 
   useEffect(() => {
@@ -44,7 +39,9 @@ const CartItemList = () => {
 
       if (response.status === 200) {
         console.log(`Product with ID ${_id} deleted successfully.`);
-        window.location.reload();
+        // Refresh cart items after deletion
+        const updatedCartItems = cartItems.filter((item) => item._id !== _id);
+        setCartItems(updatedCartItems);
       } else {
         console.log(`Failed to delete product with ID ${_id}.`);
       }
@@ -92,29 +89,43 @@ const CartItemList = () => {
         TotalPrice: totalAmount,
         Address: formData.address,
         MobNumber: formData.phone,
-        paymentId: 23534,
+        paymentId: Date.now().toString(), // Generate a unique payment ID
         items: cartItems.map((cartItem) => ({
           productId: cartItem.productId,
           quantity: cartItem.quantity,
           productPrice: cartItem.productPrice,
-          // Add other details specific to each item
         })),
       };
 
-      // Make a POST request to the server
+      // Make a POST request to the server to create an order
       const response = await axios.post(
         "http://localhost:8000/addorder",
         orderData
       );
 
       if (response.status === 200) {
-        toast.success("Order placed successfully");
+        // Display success message
+        toast.success("Order created successfully");
+
+        // Clear cart items after successful order
+        setCartItems([]);
+
+        // Delete items from the database after successful order
+        cartItems.forEach((item) => {
+          handleDeleteButton(item._id);
+        });
+
+        // Clear the form data
+        setFormData({
+          phone: "",
+          address: "",
+        });
       } else {
-        toast.error("Failed to place order");
+        toast.error("Failed to create order");
       }
     } catch (error) {
-      console.error("Error placing order:", error);
-      toast.error("Error placing order");
+      console.error("Error creating order:", error);
+      toast.error("Error creating order");
     }
   };
 

@@ -53,6 +53,7 @@ const App = () => {
             <Route path="/addproduct" element={<AdProductForm />} />
             <Route path="/changePassword" element={<ChangePasswordForm />} />
             <Route path="/shopingcard" element={<ShopingCard />} />
+
             <Route
               path="/updateProduct/:productId"
               element={<UpdateProduct />}
