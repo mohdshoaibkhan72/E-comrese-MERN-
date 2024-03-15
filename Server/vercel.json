@@ -1,11 +1,6 @@
 {
   "version": 2,
-  "functions": {
-    "api/login": { "handler": "Login-registraion/login.js" },
-    "api/register": { "handler": "Login-registraion/Registration.js" }
-  },
-  "routes": [
-    { "src": "/api/login", "dest": "api/login" },
-    { "src": "/api/register", "dest": "api/register" }
-  ]
+
+  "builds": [{ "src": "*.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "/" }]
 }
