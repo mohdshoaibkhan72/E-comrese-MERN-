@@ -52,6 +52,10 @@ app.delete("/deleteCard", checkAuthMiddle, DelCartItems);
 app.post("/addorder", AddOrder);
 
 // Start the server on port 8000
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
+});
+
 app.listen(8000, () => {
   console.log("Server is running on port 8000");
 });
