@@ -23,7 +23,7 @@ const ChangePasswordForm = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:8000/changePassword",
+        "https://e-commers-website-h9gy.onrender.com/changePassword",
         {
           email,
           newPassword,

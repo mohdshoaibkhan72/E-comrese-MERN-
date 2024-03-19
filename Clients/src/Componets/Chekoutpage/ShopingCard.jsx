@@ -15,7 +15,9 @@ const CartItemList = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/getcard");
+        const response = await axios.get(
+          "https://e-commers-website-h9gy.onrender.com/getcard"
+        );
 
         const itemsWithTotalPrice = response.data.data.map((item) => ({
           ...item,
@@ -33,9 +35,12 @@ const CartItemList = () => {
 
   const handleDeleteButton = async (_id) => {
     try {
-      const response = await axios.delete(`http://localhost:8000/deleteCard`, {
-        data: { _id: _id },
-      });
+      const response = await axios.delete(
+        `https://e-commers-website-h9gy.onrender.com/deleteCard`,
+        {
+          data: { _id: _id },
+        }
+      );
 
       if (response.status === 200) {
         console.log(`Product with ID ${_id} deleted successfully.`);
@@ -99,7 +104,7 @@ const CartItemList = () => {
 
       // Make a POST request to the server to create an order
       const response = await axios.post(
-        "http://localhost:8000/addorder",
+        "https://e-commers-website-h9gy.onrender.com/addorder",
         orderData
       );
 

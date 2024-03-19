@@ -43,7 +43,7 @@ const RegistrationPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/register",
+        "https://e-commers-website-h9gy.onrender.com/register",
         registrationData
       );
       toast.success("Registration successful!");
