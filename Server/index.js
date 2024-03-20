@@ -18,7 +18,6 @@ const UpdateProduct = require("./product Api/updateproduct");
 const AddOrder = require("./Orders/addOrders");
 
 // Middleware for parsing JSON
-app.use(express.json());
 
 // Connect to the database
 connectDB();
@@ -32,6 +31,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.json());
 // Route for user registration & login
 app.post("/register", registerUser);
 app.post("/login", login);
