@@ -24,8 +24,14 @@ app.use(express.json());
 connectDB();
 
 // Enable CORS
-app.use(cors());
-
+//app.use(cors());
+app.use(
+  cors({
+    origin: ["https://e-comrese-mern-server.vercel.app/"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 // Route for user registration & login
 app.post("/register", registerUser);
 app.post("/login", login);
