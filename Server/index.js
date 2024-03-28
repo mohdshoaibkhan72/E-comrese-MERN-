@@ -1,13 +1,13 @@
 const express = require("express");
 const connectDB = require("./connection/DbConnection");
 const app = express();
-// const cors = require("cors");
-// const registerUser = require("./Login-registraion/Registration");
+const cors = require("cors");
+//const registerUser = require("./Login-registraion/Registration");
 // const Addproduct = require("./product Api/addproduct");
 // const login = require("./Login-registraion/login");
 // const multer = require("multer");
 // const upload = multer({ dest: "images/" });
-// const Getproduct = require("./product Api/getproduct");
+const Getproduct = require("./product Api/getproduct");
 // const Chngepswd = require("./Pasword/chnagepswd");
 // const Deleteproduct = require("./product Api/deletproduct");
 // const checkAuthMiddle = require("./middlewares/checkAuthMiddleware");
@@ -23,7 +23,7 @@ const app = express();
 connectDB();
 
 // // Enable CORS
-// //app.use(cors());
+app.use(cors());
 // app.use(
 //   cors({
 //     origin: ["https://e-comrese-mern-server.vercel.app/"],
@@ -38,7 +38,7 @@ connectDB();
 
 // // Route for product to the database
 // app.post("/addproduct", upload.single("file"), Addproduct);
-// app.get("/getproducts", Getproduct);
+app.get("/getproducts", Getproduct);
 // app.put("/updateProduct/:productId", checkAuthMiddle, UpdateProduct);
 // app.delete("/deletproduct/:productId", checkAuthMiddle, Deleteproduct);
 
