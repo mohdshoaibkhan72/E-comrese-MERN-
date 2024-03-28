@@ -16,7 +16,7 @@ const GetCartItems = require("./Card/getCard");
 const DelCartItems = require("./Card/deleteCard");
 const UpdateProduct = require("./product Api/updateproduct");
 const AddOrder = require("./Orders/addOrders");
-
+require("dotenv").config();
 // Middleware for parsing JSON
 
 // Connect to the database
@@ -62,6 +62,6 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-app.listen(8000, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("Server is running on port 8000");
 });
